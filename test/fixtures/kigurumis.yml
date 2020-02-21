@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  characer: 
+  factory: 
+  customizer: 
+  base_type: 
+  owner: 
+  previous_owner: 
+
+two:
+  characer: 
+  factory: 
+  customizer: 
+  base_type: 
+  owner: 
+  previous_owner: 

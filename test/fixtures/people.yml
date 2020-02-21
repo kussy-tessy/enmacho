@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  birth_year: 
+  birth_is_reliable: false
+  birthday: 2020-02-22
+  home_prefecture: 
+  prefecture: 
+  twitter: MyString
+  lives_with_parents: false
+  is_student: false
+  remarks: MyText
+
+two:
+  name: MyString
+  birth_year: 
+  birth_is_reliable: false
+  birthday: 2020-02-22
+  home_prefecture: 
+  prefecture: 
+  twitter: MyString
+  lives_with_parents: false
+  is_student: false
+  remarks: MyText

@@ -1,0 +1,2 @@
+class Kigurumi < ApplicationRecord
+end
