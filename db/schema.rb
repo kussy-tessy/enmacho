@@ -35,16 +35,16 @@ ActiveRecord::Schema.define(version: 2020_02_21_153000) do
   end
 
   create_table "kigurumis", force: :cascade do |t|
-    t.integer "characer_id"
+    t.integer "character_id"
     t.integer "factory_id"
     t.integer "customizer_id"
-    t.integer "base_type_id"
+    t.integer "base_id"
     t.integer "owner_id"
     t.integer "previous_owner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["base_type_id"], name: "index_kigurumis_on_base_type_id"
-    t.index ["characer_id"], name: "index_kigurumis_on_characer_id"
+    t.index ["base_id"], name: "index_kigurumis_on_base_id"
+    t.index ["character_id"], name: "index_kigurumis_on_character_id"
     t.index ["customizer_id"], name: "index_kigurumis_on_customizer_id"
     t.index ["factory_id"], name: "index_kigurumis_on_factory_id"
     t.index ["owner_id"], name: "index_kigurumis_on_owner_id"
