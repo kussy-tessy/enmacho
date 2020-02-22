@@ -1,0 +1,19 @@
+<h1>Kigurumi</h1>
+
+<%= form_with url:'' do |f| %>
+  <label>名前</label>
+  <%= f.text_field :person_name %><br>
+  <label>Twitter</label>
+  <%= f.text_field :person_name %>
+
+  <label>キャラクター名</label>
+  <%= f.text_field :character_name %><br>
+  <label>作品名</label>
+  <%= f.text_field :work_name %><br>
+  <label>工房</label>
+  <%= f.select :factory_id, Factory.all.map{|e| [e.name, e.id]} %><br>
+  <label>素体</label>
+  <%= f.select :base_id, [] %><br>
+  <label>以前の所有者</label>
+  <%= f.text_field :person_name %>
+<% end %>
