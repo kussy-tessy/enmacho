@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_21_153000) do
+ActiveRecord::Schema.define(version: 2020_02_22_085823) do
 
   create_table "bases", force: :cascade do |t|
     t.integer "factory_id"
@@ -21,8 +21,9 @@ ActiveRecord::Schema.define(version: 2020_02_21_153000) do
   end
 
   create_table "characters", force: :cascade do |t|
-    t.integer "work_id"
     t.string "name"
+    t.string "yomigana"
+    t.integer "work_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["work_id"], name: "index_characters_on_work_id"
@@ -32,6 +33,14 @@ ActiveRecord::Schema.define(version: 2020_02_21_153000) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "kigurumi_images", force: :cascade do |t|
+    t.integer "kigurumi_id"
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["kigurumi_id"], name: "index_kigurumi_images_on_kigurumi_id"
   end
 
   create_table "kigurumis", force: :cascade do |t|
@@ -53,6 +62,8 @@ ActiveRecord::Schema.define(version: 2020_02_21_153000) do
 
   create_table "people", force: :cascade do |t|
     t.string "name"
+    t.string "other_name"
+    t.string "yomigana"
     t.integer "birth_year"
     t.boolean "birth_is_reliable"
     t.date "birthday"
@@ -76,6 +87,7 @@ ActiveRecord::Schema.define(version: 2020_02_21_153000) do
 
   create_table "works", force: :cascade do |t|
     t.string "name"
+    t.string "yomigana"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

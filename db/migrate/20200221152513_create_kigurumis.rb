@@ -1,7 +1,7 @@
 class CreateKigurumis < ActiveRecord::Migration[5.2]
   def change
     create_table :kigurumis do |t|
-      t.references :character, optional: true
+      t.references :character
       t.references :factory, optional: true
       t.references :customizer, optional: true
       t.references :base, optional: true

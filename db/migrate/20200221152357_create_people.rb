@@ -2,6 +2,8 @@ class CreatePeople < ActiveRecord::Migration[5.2]
   def change
     create_table :people do |t|
       t.string :name
+      t.string :other_name
+      t.string :yomigana
       t.integer :birth_year
       t.boolean :birth_is_reliable
       t.date :birthday
