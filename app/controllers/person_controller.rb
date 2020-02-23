@@ -10,4 +10,11 @@ class PersonController < ApplicationController
     @people = Person.where('twitter LIKE ?', term)
     render json: @people.to_json
   end
+
+  def kigurumis
+    twitter = params[:twitter].present? ? params[:twitter] : nil
+    name = params[:name]
+    @person = Person.find_or_initialize_by(twitter: twitter, name: name)
+    render json: @person.kigurumis.to_json(include: [:character])
+  end
 end
