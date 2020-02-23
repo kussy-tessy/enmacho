@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'kigurumi', to: 'kigurumi#index'
+  get 'kigurumi/search', to: 'kigurumi#search'
   get 'kigurumi/new'
   post 'kigurumi/create'
   # get 'kigurumi/:id', to: 'kigurumi#show'

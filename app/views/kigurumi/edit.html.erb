@@ -22,6 +22,8 @@
   <label>以前の所有者</label>
   <%= f.text_field :previous_person_name %><br>
 
+  gazou
+
   <%= f.submit '送信' %>
 <% end %>
 
@@ -122,21 +124,6 @@ $(function(){
   }).data("ui-autocomplete")._renderItem = function(ul, item) {
       return $("<li>").attr("data-value", item.name).data("ui-autocomplete-item", item).append("<a>" + item.name + "</a>").appendTo(ul);
   };
-
-  $('#factory_id').on('change',function(){
-    const val = $(this).val();
-    $.get({
-      url: '/factory/bases.json',
-      dataType: 'json',
-      data: {
-        factory_id: val
-      }
-    }).done(function(data){
-      $('#base_id option').remove();
-      $.each(data, function(id, base){
-        $('#base_id').append($('<option>').text(base.name).attr('value',base.id));
-      })
-    });
-  })
-});
+  });
+  <%= render :partial => "factory_base" %>
 </script>

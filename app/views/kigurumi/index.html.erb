@@ -1,0 +1,14 @@
+<%= form_with url:'search', method: 'get' do |f| %>
+  <label>キャラクター名</label>
+  <%= f.text_field :character_name %><br>
+  <label>作品名</label>
+  <%= f.text_field :work_name %><br>
+  <label>工房</label>
+  <%= f.select :factory_id, Factory.all.map{|e| [e.name, e.id]}, id: :factory_id %><br>
+  <label>素体</label>
+  <%= f.select :base_id, [], id: :base_id %><br>
+  <%=f.submit %>
+<% end %> 
+
+<table>
+</table>
