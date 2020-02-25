@@ -5,9 +5,9 @@ console.log("<%= @kigurumis.map{|k| k.id} %>");
   $('#search_result').append(
     '<tr><td><%= kigurumi.owner.name %></td>' +
     '<td><%= kigurumi.character.name %></td>' +
-    '<td><%= kigurumi.character.work.name %></td>' +
-    '<td><%= kigurumi.factory.name %></td>' +
-    '<td><%=  %></td>' +
+    '<td><%= kigurumi.character.work&.name %></td>' +
+    '<td><%= kigurumi.factory&.name %></td>' +
+    '<td><%= kigurumi.base&.name %></td>' +
     '</tr>');
 <% end %>
 console.log('Hi');
