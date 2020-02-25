@@ -4,23 +4,7 @@ class KigurumiController < ApplicationController
   end
 
   def search
-    characters = nil
-    factory = nil
-    base = nil    
-    if params[:character_name].present?
-      characters = Character.where(name: params[:character_name])
-    elsif params[:work_name].present?
-      work = params[:work_name]
-      characters = Work.where(work: work)
-    end
-    if params[:factory_id].present?
-      factory = Factory.find(params[:factory_id])
-    end
-    if params[:base_id].present?
-      base = Base.find(params[:base_id])
-    end
-    
-    @kigurumis = Kigurumi.where(character: characters).where(factory: factory).where(base: base)
+    @kigurumis = Kigurumi.search(params)
   end
 
   def new

@@ -4,7 +4,7 @@
   <label>作品名</label>
   <%= f.text_field :work_name %><br>
   <label>工房</label>
-  <%= f.select :factory_id, Factory.all.map{|e| [e.name, e.id]}, id: :factory_id %><br>
+  <%= f.select :factory_id, [''] + Factory.all.map{|e| [e.name, e.id]}, id: :factory_id %><br>
   <label>素体</label>
   <%= f.select :base_id, [], id: :base_id %><br>
   <%=f.submit %>
@@ -12,3 +12,7 @@
 
 <table id="search_result">
 </table>
+
+<script>
+  <%= render partial: 'factory_base' %>
+</script>
