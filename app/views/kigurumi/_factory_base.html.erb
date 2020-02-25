@@ -8,8 +8,9 @@ $('#factory_id').on('change',function(){
     }
   }).done(function(data){
     $('#base_id option').remove();
+    $('#base_id').append($('<option>').text('').attr('value',''));
     $.each(data, function(id, base){
-    $('#base_id').append($('<option>').text(base.name).attr('value',base.id));
+      $('#base_id').append($('<option>').text(base.name).attr('value',base.id));
     })
   });
 });

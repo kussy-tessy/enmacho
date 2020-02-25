@@ -1,6 +1,6 @@
 <h1>Kigurumi</h1>
 
-<%= form_with url:@method, local: true do |f| %>
+<%= form_with url:@method, local: true, html: {autocomplete: 'off'} do |f| %>
   <label>名前</label>
   <%= f.text_field :person_name, id: :person_name %><br>
   <label>Twitter</label>
@@ -16,13 +16,18 @@
   <label>作品名</label>
   <%= f.text_field :work_name, id: :work_name %><br>
   <label>工房</label>
-  <%= f.select :factory_id, Factory.all.map{|e| [e.name, e.id]}, id: :factory_id %><br>
+  <%= f.select :factory_id, [''] + Factory.all.map{|e| [e.name, e.id]}, id: :factory_id %><br>
   <label>素体</label>
   <%= f.select :base_id, [], id: :base_id %><br>
   <label>以前の所有者</label>
-  <%= f.text_field :previous_person_name %><br>
+  <%= f.text_field :previous_person_name, id: :previous_owner %><br>
 
-  gazou
+  <label>画像1</label>
+  <%= f.text_field 'kigurumi_images[]' %><br>
+  <label>画像1</label>
+  <%= f.text_field 'kigurumi_images[]'  %><br>
+  <label>画像1</label>
+  <%= f.text_field 'kigurumi_images[]'  %><br>
 
   <%= f.submit '送信' %>
 <% end %>
@@ -57,7 +62,7 @@ $(function(){
       return false;
     }
   }).data("ui-autocomplete")._renderItem = function(ul, item) {
-      return $("<li>").attr("data-value", item.name).data("ui-autocomplete-item", item).append("<a>" + item.name + "</a>").appendTo(ul);
+      return $("<li>").attr("data-value", item.name).data("ui-autocomplete-item", item).append("<a>" + item.name_with_twitter + "</a>").appendTo(ul);
   };
 
   $('#twitter').autocomplete({
@@ -88,7 +93,7 @@ $(function(){
       return false;
     }
   }).data("ui-autocomplete")._renderItem = function(ul, item) {
-      return $("<li>").attr("data-value", item.name).data("ui-autocomplete-item", item).append("<a>" + item.twitter + "</a>").appendTo(ul);
+      return $("<li>").attr("data-value", item.name).data("ui-autocomplete-item", item).append("<a>" + item.name_with_twitter + "</a>").appendTo(ul);
   };
 
   $('#character_name').autocomplete({
@@ -123,7 +128,24 @@ $(function(){
     }
   }).data("ui-autocomplete")._renderItem = function(ul, item) {
       return $("<li>").attr("data-value", item.name).data("ui-autocomplete-item", item).append("<a>" + item.name + "</a>").appendTo(ul);
-  };
+    };
   });
-  <%= render :partial => "factory_base" %>
-</script>
+  
+  $('#previous_owner').autocomplete({
+    source: '/person/auto_complete.json',
+    delay: 100,
+    minLength: 1,
+    focus: function(event, ui){
+      if($('#person_name').val() === '') $('#person_name').val(ui.item.name);
+      return false;
+    },
+    select: function(event, ui){
+      if($('#person_name').val() === '') $('#person_name').val(ui.item.name);
+      return false;
+    }
+  }).data("ui-autocomplete")._renderItem = function(ul, item) {
+    return $("<li>").attr("data-value", item.name).data("ui-autocomplete-item", item).append("<a>" + item.name_with_twitter + "</a>").appendTo(ul);
+  };
+  <%= render partial: 'factory_base' %>
+  
+  </script>

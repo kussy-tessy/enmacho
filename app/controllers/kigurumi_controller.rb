@@ -37,23 +37,22 @@ class KigurumiController < ApplicationController
   end
 
   def create
-    twitter = sent_params[:twitter].present? ? sent_params[:twitter] : nil
+    twitter = sent_params[:twitter].presence || nil
     person = Person.find_or_create_by!(name: sent_params[:person_name], twitter: twitter)
 
     work = Work.find_or_create_by!(name: sent_params[:work_name])
     character = work.characters.find_or_create_by!(name: sent_params[:character_name])
-    factory = Factory.find(sent_params[:factory_id])
-    if sent_params[:base_id].present?
-      base = Base.find(sent_params[:base_id])
-    else
-      base = nil
-    end  
+    factory = sent_params[:factory_id].present? ? Factory.find(sent_params[:factory_id]) : nil
+    base = sent_params[:base_id].present? ? Base.find(sent_params[:base_id]) : nil
     kigurumi = person.kigurumis.create!(character: character, factory: factory)
-    render json: Character.last
+    kigurumi_images = sent_params['kigurumi_images']
+    kigurumi.kigurumi_images.destroy_all
+    kigurumi.kigurumi_images.create!(kigurumi_images.map{|image| {url: image} })
+    render 'edit'
   end
 
   private
     def sent_params
-      params.permit(:person_name, :twitter, :character_name, :work_name, :factory_id, :base_id, :previous_person_name)
+      params.permit(:person_name, :twitter, :character_name, :work_name, :factory_id, :base_id, :previous_person_name, kigurumi_images: [])
     end
 end
