@@ -40,7 +40,8 @@ class KigurumiController < ApplicationController
     twitter = sent_params[:twitter].presence || nil
     person = Person.find_or_create_by!(name: sent_params[:person_name], twitter: twitter)
 
-    work = Work.find_or_create_by!(name: sent_params[:work_name])
+    work_name = sent_params[:work_name].presence || 'オリジナル'
+    work = Work.find_or_create_by!(name: work_name) 
     character = work.characters.find_or_create_by!(name: sent_params[:character_name])
     factory = sent_params[:factory_id].present? ? Factory.find(sent_params[:factory_id]) : nil
     base = sent_params[:base_id].present? ? Base.find(sent_params[:base_id]) : nil
