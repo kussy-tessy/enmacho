@@ -13,7 +13,7 @@ class Kigurumi < ApplicationRecord
       .base_id_is(params[:base_id])
   end
 
-  scope :character_name_is, -> (character_name) { where(character: Character.find_by(character_name).presence || -1 ) if character_name.present? }
+  scope :character_name_is, -> (character_name) { where(character: Character.find_by(name: character_name).presence || -1 ) if character_name.present? }
   scope :factory_id_is, -> (factory_id) { where(factory_id: factory_id) if factory_id.present? }
   scope :base_id_is, -> (base_id) { where(base_id: base_id) if base_id.present? }
 end

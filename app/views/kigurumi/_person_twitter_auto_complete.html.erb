@@ -1,0 +1,68 @@
+var myAutoComplete = myAutoComplete || {};
+
+myAutoComplete.personTwitter = function(person_name, twitter){
+  person_name.autocomplete({
+    source: '/person/auto_complete.json',
+    delay: 100,
+    minLength: 1,
+    focus: function(event, ui){
+        $('#person_name').val(ui.item.name);
+        if($('#twitter').val() === '') $('#twitter').val(ui.item.twitter);
+        return false;
+    },
+    select: function(event, ui){
+        $('#person_name').val(ui.item.name);
+        if($('#twitter').val() === '') $('#twitter').val(ui.item.twitter);
+        $.get({
+        url: '/person/kigurumis.json',
+        dataType: 'json',
+        data: {
+            name: ui.item.name,
+            twitter: $('#twitter').val()
+        }
+        }).done(function(data){
+        $('#kigurumis li').remove();
+        $.each(data, function(id, kigurumi){
+            $('#kigurumis ul').append($('<li>').text(kigurumi.character.name));
+        })
+        });
+        return false;
+    }
+  }).data("ui-autocomplete")._renderItem = function(ul, item) {
+    return $("<li>").attr("data-value", item.name).data("ui-autocomplete-item", item).append("<a>" + item.name_with_twitter + "</a>").appendTo(ul);
+  };
+
+  twitter.autocomplete({
+    source: '/person/auto_complete_twitter.json',
+    delay: 100,
+    minLength: 1,
+    focus: function(event, ui){
+      $('#twitter').val(ui.item.twitter);
+      if($('#person_name').val() === '') $('#person_name').val(ui.item.name);
+      return false;
+    },
+    select: function(event, ui){
+      $('#twitter').val(ui.item.twitter);
+      if($('#person_name').val() === '') $('#person_name').val(ui.item.name);
+      $.get({
+        url: '/person/kigurumis.json',
+        dataType: 'json',
+        data: {
+          name: ui.item.name,
+          twitter: $('#twitter').val()
+        }
+      }).done(function(data){
+        $('#kigurumis li').remove();
+        $.each(data, function(id, kigurumi){
+          $('#kigurumis ul').append($('<li>').text(kigurumi.character.name));
+        })
+      });
+      return false;
+    }
+  }).data("ui-autocomplete")._renderItem = function(ul, item) {
+      return $("<li>").attr("data-value", item.name).data("ui-autocomplete-item", item).append("<a>" + item.name_with_twitter + "</a>").appendTo(ul);
+  };
+}
+
+// myAutoComplete.personTwitter($('#person_name'), $('#twitter'));
+// myAutoComplete.personTwitter($('#previous_owner_name'), $('#previous_owner_twitter'));

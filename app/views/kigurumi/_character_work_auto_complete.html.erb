@@ -1,0 +1,33 @@
+$('#character_name').autocomplete({
+  source: '/character/auto_complete.json',
+  delay: 100,
+  minLength: 1,
+  focus: function(event, ui){
+      $('#character_name').val(ui.item.name);
+      if($('#work_name').val() === '') $('#work_name').val(ui.item.work.name);
+      return false;
+  },
+  select: function(event, ui){
+      $('#character_name').val(ui.item.name);
+      if($('#work_name').val() === '') $('#work_name').val(ui.item.work.name);
+      return false;
+  }
+}).data("ui-autocomplete")._renderItem = function(ul, item) {
+    return $("<li>").attr("data-value", item.name).data("ui-autocomplete-item", item).append("<a>" + item.name + "</a>").appendTo(ul);
+};
+
+$('#work_name').autocomplete({
+  source: '/work/auto_complete.json',
+  delay: 100,
+  minLength: 1,
+  focus: function(event, ui){
+    $('#work_name').val(ui.item.name);
+    return false;
+  },
+  select: function(event, ui){
+    $('#work_name').val(ui.item.name);
+    return false;
+  }
+}).data("ui-autocomplete")._renderItem = function(ul, item) {
+    return $("<li>").attr("data-value", item.name).data("ui-autocomplete-item", item).append("<a>" + item.name + "</a>").appendTo(ul);
+  };
