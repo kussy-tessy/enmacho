@@ -7,6 +7,7 @@ class CreateKigurumis < ActiveRecord::Migration[5.2]
       t.references :base, optional: true
       t.references :owner, optional: true
       t.references :previous_owner, optional: true
+      t.text :remarks, optional: true
 
       t.timestamps
     end
