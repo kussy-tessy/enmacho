@@ -1,12 +1,12 @@
 <%= form_with url:'search', method: 'get' do |f| %>
   <label>キャラクター名</label>
-  <%= f.text_field :character_name %><br>
+  <%= f.text_field :character_name, id: :characterName, class: :auto_complete %><br>
   <label>作品名</label>
-  <%= f.text_field :work_name %><br>
+  <%= f.text_field :work_name, id: :workName, class: :auto_complete %><br>
   <label>工房</label>
-  <%= f.select :factory_id, [''] + Factory.all.map{|e| [e.name, e.id]}, id: :factory_id %><br>
+  <%= f.select :factory_id, [''] + Factory.all.map{|e| [e.name, e.id]}, id: :factoryId %><br>
   <label>素体</label>
-  <%= f.select :base_id, [], id: :base_id %><br>
+  <%= f.select :base_id, [], id: :baseId %><br>
   <%=f.submit %>
 <% end %> 
 
@@ -14,7 +14,13 @@
 </table>
 
 <script>
-<%= render partial: 'person_twitter_auto_complete' %>
-<%= render partial: 'character_work_auto_complete' %>
-<%= render partial: 'factory_base_select' %>
+autoComplete.characterWorkChain({
+  character: '#characterName.auto_complete',
+  work: '#workName.auto_complete',
+  characterUrl: '/character/auto_complete', 
+  characterVal: 'name',
+  workUrl: '/work/auto_complete',
+  workVal: 'name',
+  characterDisplayVal: 'name_with_work'
+});
 </script>

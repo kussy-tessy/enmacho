@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'kigurumi/search', to: 'kigurumi#search'
   get 'kigurumi/new'
   post 'kigurumi/create'
-  # get 'kigurumi/:id', to: 'kigurumi#show'
+  get 'kigurumi/:id', to: 'kigurumi#show'
   get 'kigurumi/:id/edit', to: 'kigurumi#edit'
   post 'kigurumi/:id', to: 'kigurumi#update'
 

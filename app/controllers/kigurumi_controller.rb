@@ -15,6 +15,10 @@ class KigurumiController < ApplicationController
   def create
   end
 
+  def show
+    @kigurumi = Kigurumi.find(params[:id])
+  end
+
   def edit
     @method = 'create'
     render 'edit'

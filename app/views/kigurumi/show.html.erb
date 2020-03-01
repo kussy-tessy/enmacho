@@ -1,0 +1,34 @@
+<table>
+  <tr>
+    <td>所有者</td>
+    <td><%= @kigurumi.owner.name_with_twitter %></td>
+  </tr>
+  <tr>
+    <td>キャラクター</td>
+    <td><%= @kigurumi.character.name_with_work %></td>
+  </tr>
+  <tr>
+    <td>工房</td>
+    <td><%= @kigurumi.factory&.name %></td>
+  </tr>
+  <tr>
+    <td>素体</td>
+    <td><%= @kigurumi.base&.name %></td>
+  </tr>
+  <tr>
+    <td>以前の所有者</td>
+    <td><%= @kigurumi.previous_owner&.name_with_twitter %></td>
+  </tr>
+</table>
+<div id="tweet-container"></div>
+
+<script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>
+<script>
+  twttr.widgets.createTweet(
+    '<%= @kigurumi.kigurumi_images[0].tweet_id %>', 
+    $('#tweet-container').get(0),
+    {
+      lang: 'ja'
+    }
+  )
+</script>

@@ -50,6 +50,7 @@ autoComplete.personChain = (params) => {
   };
 }
 
+// キャラクター関係
 autoComplete.characterWorkChain = (params) => {
   const character = $(params.character);
   const work = $(params.work); 
@@ -96,3 +97,23 @@ autoComplete.characterWorkChain = (params) => {
     return $("<li>").attr("data-value", item.name).data("ui-autocomplete-item", item).append("<a>" + item[workVal] + "</a>").appendTo(ul);
   };
 }
+
+// 工房関係
+$(function(){
+  $('#factoryId').on('change',function(){
+    const val = $(this).val();
+    $.get({
+      url: '/factory/bases.json',
+      dataType: 'json',
+      data: {
+      factory_id: val
+      }
+    }).done(function(data){
+      $('#baseId option').remove();
+      $('#baseId').append($('<option>').text('').attr('value',''));
+      $.each(data, function(id, base){
+        $('#baseId').append($('<option>').text(base.name).attr('value',base.id));
+      })
+    });
+  });
+});
