@@ -2,9 +2,9 @@
 
 <%= form_with url:@method, local: true, html: {autocomplete: 'off'} do |f| %>
   <label>名前</label>
-  <%= f.text_field :person_name, id: :person_name %><br>
+  <%= f.text_field :person_name, id: :personName, class: :auto_complete %><br>
   <label>Twitter</label>
-  @<%= f.text_field :twitter, id: :twitter %><br>
+  @<%= f.text_field :twitter, id: :twitter, class: :auto_complete%><br>
 
   <div id="kigurumis">
     <p>すでに登録されている着ぐるみ</p>
@@ -12,30 +12,75 @@
   </div>
 
   <label>キャラクター名</label>
-  <%= f.text_field :character_name, id: :character_name %><br>
+  <%= f.text_field :character_name, id: :characterName, class: :auto_complete %><br>
   <label>作品名</label>
-  <%= f.text_field :work_name, id: :work_name %><br>
+  <%= f.text_field :work_name, id: :workName, class: :auto_complete %><br>
   <label>工房</label>
-  <%= f.select :factory_id, [''] + Factory.all.map{|e| [e.name, e.id]}, id: :factory_id %><br>
+  <%= f.select :factory_id, [''] + Factory.all.map{|e| [e.name, e.id]}, id: :factoryId %><br>
   <label>素体</label>
-  <%= f.select :base_id, [], id: :base_id %><br>
+  <%= f.select :base_id, [], id: :baseId %><br>
   <label>以前の所有者</label>
-  <%= f.text_field :previous_person_name, id: :previous_owner %><br>
+  <%= f.text_field :previous_owner_name, id: :previousOwnerName, class: :auto_complete %><br>
+  <%= f.text_field :previous_owner_twitter, id: :previousOwnerTwitter, class: :auto_complete %><br>
 
   <label>画像1</label>
   <%= f.text_field 'kigurumi_images[]' %><br>
-  <label>画像1</label>
+  <label>画像2</label>
   <%= f.text_field 'kigurumi_images[]'  %><br>
-  <label>画像1</label>
+  <label>画像3</label>
   <%= f.text_field 'kigurumi_images[]'  %><br>
 
-  <%= f.submit '送信' %>
+  <%= f.submit '登録' %>
 <% end %>
 
 <script>
-$(function(){
-  <%= render partial: 'person_twitter_auto_complete' %>
-  <%= render partial: 'character_work_auto_complete' %>
-  <%= render partial: 'factory_base_select' %>
-}
+autoComplete.personChain({
+  name: '#personName.auto_complete',
+  twitter: '#twitter.auto_complete',
+  nameUrl: '/person/auto_complete.json',
+  nameVal: 'name',
+  twitterUrl: '/person/auto_complete_twitter.json',
+  twitterVal: 'twitter',
+  displayVal: 'name_with_twitter',
+  onSelected: function(name, twitter){
+    $.get({
+      url: '/person/kigurumis.json',
+      dataType: 'json',
+    data: {
+      name: name.val(),
+      twitter: twitter.val()
+  }
+  }).done(function(data){
+    $('#kigurumis li').remove();
+    $.each(data, function(id, kigurumi){
+      $('#kigurumis ul').append($('<li>').text(kigurumi.character.name));
+    });
+  });
+  }
+});
+
+autoComplete.personChain({
+  name: '#previousOwnerName.auto_complete',
+  twitter: '#twitter.auto_complete',
+  nameUrl: '/person/auto_complete.json',
+  nameVal: 'name',
+  twitterUrl: '/person/auto_complete_twitter.json',
+  twitterVal: 'twitter',
+  displayVal: 'name_with_twitter',
+  onSelected: function(name, twitter){
+    $.get({
+      url: '/person/kigurumis.json',
+      dataType: 'json',
+    data: {
+      name: name.val(),
+      twitter: twitter.val()
+    }  
+  }).done(function(data){
+    $('#kigurumis li').remove();
+    $.each(data, function(id, kigurumi){
+      $('#kigurumis ul').append($('<li>').text(kigurumi.character.name));
+    });
+  });
+  }
+});
 </script>
