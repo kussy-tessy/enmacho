@@ -10,7 +10,7 @@ autoComplete.personChain = (params) => {
   const displayVal = params.displayVal;
   const onSelected = params.onSelected;
 
-  if(name.length * twitter.length == 0) return;
+  // if(name.length * twitter.length == 0) return;
   name.autocomplete({
     source: nameUrl,
     delay: 100,
@@ -47,5 +47,52 @@ autoComplete.personChain = (params) => {
     }
   }).data("ui-autocomplete")._renderItem = function(ul, item) {
     return $("<li>").attr("data-value", item.name).data("ui-autocomplete-item", item).append("<a>" + item[displayVal] + "</a>").appendTo(ul);
+  };
+}
+
+autoComplete.characterWorkChain = (params) => {
+  const character = $(params.character);
+  const work = $(params.work); 
+  const characterUrl = params.characterUrl;
+  const characterVal = params.characterVal;
+  const workUrl = params.workUrl;
+  const workVal = params.workVal;
+  const characterDisplayVal = params.characterDisplayVal;
+  const onSelected = params.onSelected;
+
+  // if(name.length * twitter.length == 0) return;
+  character.autocomplete({
+    source: characterUrl,
+    delay: 100,
+    minLength: 1,
+    focus: (event, ui) => {
+      character.val(ui.item[characterVal]);
+      // if(twitter.val() === '') parent.val(ui.item[twitterVal]);
+      return false;
+    },
+    select: (event, ui) => {
+      character.val(ui.item[characterVal]);
+      if(work.val() === '') work.val(ui.item.work[workVal]);
+      return false;
+    }
+  }).data("ui-autocomplete")._renderItem = (ul, item) => {
+    return $("<li>").attr("data-value", item.name).data("ui-autocomplete-item", item).append("<a>" + item[characterDisplayVal] + "</a>").appendTo(ul);
+  };
+
+  work.autocomplete({
+    source: workUrl,
+    delay: 100,
+    minLength: 1,
+    focus: (event, ui) => {
+      work.val(ui.item[workVal]);
+      // if(child.val() === '') parent.val(ui.item.name);
+      return false;
+    },
+    select: (event, ui) => {
+      work.val(ui.item[workVal]);
+      return false;
+    }
+  }).data("ui-autocomplete")._renderItem = function(ul, item) {
+    return $("<li>").attr("data-value", item.name).data("ui-autocomplete-item", item).append("<a>" + item[workVal] + "</a>").appendTo(ul);
   };
 }

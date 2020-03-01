@@ -61,7 +61,7 @@ autoComplete.personChain({
 
 autoComplete.personChain({
   name: '#previousOwnerName.auto_complete',
-  twitter: '#twitter.auto_complete',
+  twitter: '#previousOwnerTwitter.auto_complete',
   nameUrl: '/person/auto_complete.json',
   nameVal: 'name',
   twitterUrl: '/person/auto_complete_twitter.json',
@@ -82,5 +82,15 @@ autoComplete.personChain({
     });
   });
   }
+});
+
+autoComplete.characterWorkChain({
+  character: '#characterName.auto_complete',
+  work: '#workName.auto_complete',
+  characterUrl: '/character/auto_complete', 
+  characterVal: 'name',
+  workUrl: '/work/auto_complete',
+  workVal: 'name',
+  characterDisplayVal: 'name_with_work'
 });
 </script>
