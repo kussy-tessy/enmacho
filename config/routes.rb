@@ -1,18 +1,21 @@
 Rails.application.routes.draw do
-  get 'kigurumi', to: 'kigurumi#index'
-  get 'kigurumi/search', to: 'kigurumi#search'
-  get 'kigurumi/new'
-  post 'kigurumi/create'
-  get 'kigurumi/:id', to: 'kigurumi#show'
-  get 'kigurumi/:id/edit', to: 'kigurumi#edit'
-  post 'kigurumi/:id', to: 'kigurumi#update'
+  resources :kigurumis do
+    collection do
+      get 'search'
+    end
+  end
 
-  get 'person/auto_complete'
-  get 'person/auto_complete_twitter'
-  get 'person/kigurumis'
-  get 'character/auto_complete'
-  get 'work/auto_complete'
-  get 'factory/bases'
+  resources :people do
+    collection do
+      get 'kigurumis'
+      get 'auto_complete'
+      get 'auto_complete_twitter'
+    end
+  end
+
+  get 'characters/auto_complete', as: :auto_complete_characters
+  get 'works/auto_complete', as: :auto_complete_works
+  get 'factories/bases', as: :bases_factories_path
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

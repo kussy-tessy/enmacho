@@ -25,7 +25,7 @@
 <script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>
 <script>
   twttr.widgets.createTweet(
-    '<%= @kigurumi.kigurumi_images[0].tweet_id %>', 
+    '<%= @kigurumi.kigurumi_images[0]&.tweet_id %>', 
     $('#tweet-container').get(0),
     {
       lang: 'ja'

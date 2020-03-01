@@ -1,4 +1,4 @@
-class KigurumiController < ApplicationController
+class KigurumisController < ApplicationController
   def index
     render 'index'
   end
@@ -8,7 +8,8 @@ class KigurumiController < ApplicationController
   end
 
   def new
-    @method = 'create'
+    @method = new_kigurumi_path
+    @kigurumi = Kigurumi.new()
     render 'edit'
   end
 
@@ -20,7 +21,8 @@ class KigurumiController < ApplicationController
   end
 
   def edit
-    @method = 'create'
+    @kigurumi = Kigurumi.find(params[:id])
+    @method = kigurumi_path(@kigurumi)
     render 'edit'
   end
 
@@ -42,6 +44,7 @@ class KigurumiController < ApplicationController
 
   private
     def sent_params
-      params.permit(:person_name, :twitter, :character_name, :work_name, :factory_id, :base_id, :previous_person_name, kigurumi_images: [])
+      # params.permit(:person_name, :twitter, :character_name, :work_name, :factory_id, :base_id, :previous_person_name, kigurumi_images: [])
+      params[:kigurumi]
     end
 end

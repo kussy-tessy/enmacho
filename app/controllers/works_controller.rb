@@ -1,4 +1,4 @@
-class WorkController < ApplicationController
+class WorksController < ApplicationController
   def auto_complete
     term = "%#{params[:term]}%"
     @works = Work.where('name LIKE ? OR yomigana LIKE ?', term, term)

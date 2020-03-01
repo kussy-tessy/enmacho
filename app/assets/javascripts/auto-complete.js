@@ -101,9 +101,10 @@ autoComplete.characterWorkChain = (params) => {
 // 工房関係
 $(function(){
   $('#factoryId').on('change',function(){
+    console.log('Hi');
     const val = $(this).val();
     $.get({
-      url: '/factory/bases.json',
+      url: '/factories/bases.json',
       dataType: 'json',
       data: {
       factory_id: val

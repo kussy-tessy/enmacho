@@ -1,4 +1,4 @@
-class CharacterController < ApplicationController
+class CharactersController < ApplicationController
   def auto_complete
     term = "%#{params[:term]}%"
     @characters = Character.where('name LIKE ? OR yomigana LIKE ?', term, term)
