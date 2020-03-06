@@ -2,9 +2,9 @@ $('#search_result').empty();
 $('#search_result').append('<thead><td>所有者名</td><td>キャラクター名</td><td>作品名</td><td>工房</td><td>素体</td></thead>');
 <% @kigurumis.each do |kigurumi| %>
   $('#search_result').append(
-    '<tr><td><%= kigurumi.owner.name %></td>' +
-    '<td><%= kigurumi.character.name %></td>' +
-    '<td><%= kigurumi.character.work&.name %></td>' +
+    '<tr><td><%= kigurumi.owner&.name %></td>' +
+    '<td><%= kigurumi.character&.name %></td>' +
+    '<td><%= kigurumi.character&.work&.name %></td>' +
     '<td><%= kigurumi.factory&.name %></td>' +
     '<td><%= kigurumi.base&.name %></td>' +
     '<td><%= link_to '詳細', kigurumi_path(kigurumi) %>' +

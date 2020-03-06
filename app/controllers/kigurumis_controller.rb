@@ -1,3 +1,5 @@
+require './app/services/kigurumis_save_service'
+
 class KigurumisController < ApplicationController
   def index
     render 'index'
@@ -8,12 +10,10 @@ class KigurumisController < ApplicationController
   end
 
   def new
-    @method = new_kigurumi_path
+    @url = kigurumis_path
     @kigurumi = Kigurumi.new()
+    @method = 'post'
     render 'edit'
-  end
-
-  def create
   end
 
   def show
@@ -22,29 +22,23 @@ class KigurumisController < ApplicationController
 
   def edit
     @kigurumi = Kigurumi.find(params[:id])
-    @method = kigurumi_path(@kigurumi)
+    @url = kigurumi_path(@kigurumi)
+    @method = 'put'
     render 'edit'
   end
 
   def create
-    twitter = sent_params[:twitter].presence || nil
-    person = Person.find_or_create_by!(name: sent_params[:person_name], twitter: twitter)
+    self.update
+  end
 
-    work_name = sent_params[:work_name].presence || 'オリジナル'
-    work = Work.find_or_create_by!(name: work_name) 
-    character = work.characters.find_or_create_by!(name: sent_params[:character_name])
-    factory = sent_params[:factory_id].present? ? Factory.find(sent_params[:factory_id]) : nil
-    base = sent_params[:base_id].present? ? Base.find(sent_params[:base_id]) : nil
-    kigurumi = person.kigurumis.create!(character: character, factory: factory)
-    kigurumi_images = sent_params['kigurumi_images']
-    kigurumi.kigurumi_images.destroy_all
-    kigurumi.kigurumi_images.create!(kigurumi_images.map{|image| {url: image} })
-    render 'edit'
+  def update
+    service = KigurumisSaveService.new(sent_params)
+    service.save
+    render 'index'
   end
 
   private
     def sent_params
-      # params.permit(:person_name, :twitter, :character_name, :work_name, :factory_id, :base_id, :previous_person_name, kigurumi_images: [])
-      params[:kigurumi]
+      params.permit(:person_name, :twitter, :character_name, :work_name, :factory_id, :base_id, :previous_person_name, kigurumi_images: [])
     end
 end

@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2020_02_22_085823) do
     t.integer "base_id"
     t.integer "owner_id"
     t.integer "previous_owner_id"
+    t.text "remarks"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["base_id"], name: "index_kigurumis_on_base_id"

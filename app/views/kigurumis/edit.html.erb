@@ -1,6 +1,7 @@
 <h1>Kigurumi</h1>
 
-<%= form_with url:@method, local: true, html: {autocomplete: 'off'} do |f| %>
+<%= form_with url:@url, method: @method, local: true, html: {autocomplete: 'off'} do |f| %>
+  <%= f.hidden_field :id, value: @kigurumi.id %>
   <label>名前</label>
   <%= f.text_field :person_name, value: @kigurumi.owner&.name, id: :personName, class: :auto_complete %><br>
   <label>Twitter</label>
@@ -20,7 +21,7 @@
   <label>工房</label>
   <%= f.select :factory_id, options_for_select([['', '']] + Factory.all.map{|factory| [factory.name, factory.id]}, @kigurumi.factory_id), {}, {id: :factoryId}%><br>
   <label>素体</label>
-  <%= f.select :base_id, options_for_select([['', '']] + @kigurumi.factory.bases.map{|base| [base.name, base.id]}, @kigurumi.base_id), {}, {id: :baseId} %><br>
+  <%= f.select :base_id, options_for_select([['', '']] + (@kigurumi.factory&.bases&.map{|base| [base.name, base.id]}.to_a), @kigurumi.base_id), {}, {id: :baseId} %><br>
   <label>以前の所有者</label>
   <%= f.text_field :previous_owner_name, value: @kigurumi.previous_owner&.name, id: :previousOwnerName, class: :auto_complete %><br>
   <%= f.text_field :previous_owner_twitter, value: @kigurumi.previous_owner&.twitter, id: :previousOwnerTwitter, class: :auto_complete %><br>

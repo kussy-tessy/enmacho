@@ -1,7 +1,7 @@
 <table>
   <tr>
     <td>所有者</td>
-    <td><%= @kigurumi.owner.name_with_twitter %></td>
+    <td><%= @kigurumi.owner&.name_with_twitter %></td>
   </tr>
   <tr>
     <td>キャラクター</td>
@@ -16,19 +16,31 @@
     <td><%= @kigurumi.base&.name %></td>
   </tr>
   <tr>
+    <td>製作者</td>
+    <td><%= @kigurumi.customizer&.name_with_twitter %></td>
+  </tr>
+  <tr>
     <td>以前の所有者</td>
     <td><%= @kigurumi.previous_owner&.name_with_twitter %></td>
   </tr>
+  <tr>
+    <td>備考</td>
+    <td><%= @kigurumi.remarks %></td>
+  </tr>
 </table>
-<div id="tweet-container"></div>
+<div id="tweet-container1"></div>
+<div id="tweet-container2"></div>
+<div id="tweet-container3"></div>
 
 <script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>
 <script>
-  twttr.widgets.createTweet(
-    '<%= @kigurumi.kigurumi_images[0]&.tweet_id %>', 
-    $('#tweet-container').get(0),
-    {
-      lang: 'ja'
-    }
-  )
+  <%  @kigurumi.kigurumi_images.each_with_index do |image, i| %>
+    twttr.widgets.createTweet(
+      '<%= image.tweet_id %>', 
+      $('#tweet-container' + <%= i+1 %>).get(0),
+      {
+        lang: 'ja'
+      }
+    );
+  <% end %>
 </script>
