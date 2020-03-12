@@ -61,7 +61,4 @@ Rails.application.configure do
 
   config.log_level = :debug
 
-  config.cache_classes = false
-  config.reload_classes_only_on_change = false
-  config.file_watcher = ActiveSupport::FileUpdateChecker
 end
