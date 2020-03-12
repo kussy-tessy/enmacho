@@ -66,4 +66,4 @@ gem "jquery-rails"
 gem 'jquery-ui-rails'
 
 # Bootstrap
-gem 'bootstrap', '~> 4.1.1'
+gem 'bootstrap', '~> 4.3.1'
