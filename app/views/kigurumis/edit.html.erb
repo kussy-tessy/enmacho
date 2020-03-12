@@ -22,10 +22,14 @@
   <%= f.select :factory_id, options_for_select([['', '']] + Factory.all.map{|factory| [factory.name, factory.id]}, @kigurumi.factory_id), {}, {id: :factoryId}%><br>
   <label>素体</label>
   <%= f.select :base_id, options_for_select([['', '']] + (@kigurumi.factory&.bases&.map{|base| [base.name, base.id]}.to_a), @kigurumi.base_id), {}, {id: :baseId} %><br>
+  <label>製作者</label>
+  <%= f.text_field :customizer_name, value: @kigurumi.customizer&.name, id: :customizerName, class: :auto_complete %><br>
+  <%= f.text_field :customizer_twitter, value: @kigurumi.customizer&.twitter, id: :customizerTwitter, class: :auto_complete %><br>
   <label>以前の所有者</label>
   <%= f.text_field :previous_owner_name, value: @kigurumi.previous_owner&.name, id: :previousOwnerName, class: :auto_complete %><br>
   <%= f.text_field :previous_owner_twitter, value: @kigurumi.previous_owner&.twitter, id: :previousOwnerTwitter, class: :auto_complete %><br>
-
+  <label>備考</label>
+  <%= f.text_area :remarks, value: @kigurumi.remarks %><br>
   <label>画像</label>
   <% (1..3).each do |i| %>
     <%= f.text_field 'kigurumi_images[]', value: @kigurumi.kigurumi_images[i]&.url  %><br>
@@ -72,16 +76,31 @@ autoComplete.personChain({
     $.get({
       url: '<%= kigurumis_people_path %>',
       dataType: 'json',
-    data: {
-      name: name.val(),
-      twitter: twitter.val()
-    }  
-  }).done(function(data){
-    $('#kigurumis li').remove();
-    $.each(data, function(id, kigurumi){
-      $('#kigurumis ul').append($('<li>').text(kigurumi.character.name));
+      data: {
+        name: name.val(),
+        twitter: twitter.val()
+      }  
     });
-  });
+  }
+});
+
+autoComplete.personChain({
+  name: '#customizerName.auto_complete',
+  twitter: '#customizerTwitter.auto_complete',
+  nameUrl: '<%= auto_complete_people_path %>',
+  nameVal: 'name',
+  twitterUrl: '<%= auto_complete_twitter_people_path %>',
+  twitterVal: 'twitter',
+  displayVal: 'name_with_twitter',
+  onSelected: function(name, twitter){
+    $.get({
+      url: '<%= kigurumis_people_path %>',
+      dataType: 'json',
+      data: {
+        name: name.val(),
+        twitter: twitter.val()
+      }
+    });
   }
 });
 
