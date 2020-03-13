@@ -15,3 +15,7 @@
  *= require jquery-ui
  */
  @import "bootstrap";
+
+ tbody tr.clickable:hover td{
+    cursor: pointer;
+ }
