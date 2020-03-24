@@ -33,8 +33,8 @@ class KigurumisController < ApplicationController
 
   def update
     service = KigurumisSaveService.new(sent_params)
-    service.save
-    render 'index'
+    kigurumi = service.save
+    redirect_to kigurumi_path(kigurumi)
   end
 
   private

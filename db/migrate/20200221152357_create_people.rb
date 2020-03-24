@@ -10,8 +10,6 @@ class CreatePeople < ActiveRecord::Migration[5.2]
       t.references :home_prefecture, optional: true
       t.references :prefecture, optional: true
       t.string :twitter
-      t.boolean :lives_with_parents
-      t.boolean :is_student
       t.text :remarks
 
       t.timestamps

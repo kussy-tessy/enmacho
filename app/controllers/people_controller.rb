@@ -8,7 +8,7 @@ class PeopleController < ApplicationController
   def auto_complete_twitter
     term = "#{params[:term]}%"
     @people = Person.where('twitter LIKE ?', term)
-    render json: @people.to_json(methods: [:name_with_twitter])
+    render json: @people.to_json(methods: [:name_with_twitter, :twitter])
   end
 
   def kigurumis

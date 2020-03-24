@@ -7,12 +7,12 @@ class KigurumisSaveService
     @kigurumi = @params[:id].present? ? Kigurumi.find(@params[:id]) : Kigurumi.new
     twitter = @params[:twitter].presence || nil
     owner = Person.find_or_create_by!(name: @params[:person_name], twitter: twitter)
-
+    
     previous_owner_twitter = @params[:previous_owner_twitter].presence || nil
     previous_owner = Person.find_or_create_by!(name: @params[:previous_owner_name], twitter: previous_owner_twitter)
 
     customizer_twitter = @params[:customizer_twitter].presence || nil
-    previous_owner = Person.find_or_create_by!(name: @params[:customizer_name], twitter: @params[:customizer_twitter])
+    customizer = Person.find_or_create_by!(name: @params[:customizer_name], twitter: @params[:customizer_twitter])
 
     work_name = @params[:work_name].presence || 'オリジナル'
     work = Work.find_or_create_by!(name: work_name)
@@ -20,7 +20,8 @@ class KigurumisSaveService
     factory = @params[:factory_id].present? ? Factory.find(@params[:factory_id]) : nil
     base = @params[:base_id].present? ? Base.find(@params[:base_id]) : nil
     @kigurumi.owner = owner
-    @kigurumi.previous_owner = previous_owner
+    @kigurumi.previous_owner = previous_owner if @params[:previous_owner_name].present?
+    @kigurumi.customizer = customizerif @params[:customizer_name].present?
     @kigurumi.character = character
     @kigurumi.factory = factory
     @kigurumi.base = base
@@ -29,5 +30,7 @@ class KigurumisSaveService
     kigurumi_images = @params['kigurumi_images']
     @kigurumi.kigurumi_images.destroy_all
     @kigurumi.kigurumi_images.create!(kigurumi_images.map{|image| {url: image} })
+
+    return @kigurumi
   end
 end

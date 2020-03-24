@@ -1,38 +1,41 @@
-<button class="btn btn-primary">test!</button>
-
-<table>
+<div class="container mt-2">
+  <div class="row mb-2">
+    <a href="<%= edit_kigurumi_path(@kigurumi) %>" class="btn btn-primary col-sm-4 offset-sm-4">情報を編集する</a>
+  </div>
+  <table class="table">
   <tr>
-    <td>所有者</td>
-    <td><%= @kigurumi.owner&.name_with_twitter %></td>
-  </tr>
-  <tr>
-    <td>キャラクター</td>
+    <th>キャラクター</th>
     <td><%= @kigurumi.character.name_with_work %></td>
   </tr>
-  <tr>
-    <td>工房</td>
-    <td><%= @kigurumi.factory&.name %></td>
-  </tr>
-  <tr>
-    <td>素体</td>
-    <td><%= @kigurumi.base&.name %></td>
-  </tr>
-  <tr>
-    <td>製作者</td>
-    <td><%= @kigurumi.customizer&.name_with_twitter %></td>
-  </tr>
-  <tr>
-    <td>以前の所有者</td>
-    <td><%= @kigurumi.previous_owner&.name_with_twitter %></td>
-  </tr>
-  <tr>
-    <td>備考</td>
-    <td><%= @kigurumi.remarks %></td>
-  </tr>
-</table>
-<div id="tweet-container1"></div>
-<div id="tweet-container2"></div>
-<div id="tweet-container3"></div>
+    <tr>
+      <th>所有者</th>
+      <td><%= @kigurumi.owner&.name_with_twitter %></td>
+    </tr>
+    <tr>
+      <th>工房</th>
+      <td><%= @kigurumi.factory&.name %></td>
+    </tr>
+    <tr>
+      <th>素体</th>
+      <td><%= @kigurumi.base&.name %></td>
+    </tr>
+    <tr>
+      <th>製作者</th>
+      <td><%= @kigurumi.customizer&.name_with_twitter %></td>
+    </tr>
+    <tr>
+      <th>以前の所有者</th>
+      <td><%= @kigurumi.previous_owner&.name_with_twitter %></td>
+    </tr>
+    <tr>
+      <th>備考</th>
+      <td><%= @kigurumi.remarks %></td>
+    </tr>
+  </table>
+  <div id="tweet-container1"></div>
+  <div id="tweet-container2"></div>
+  <div id="tweet-container3"></div>
+</div>
 
 <script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>
 <script>
