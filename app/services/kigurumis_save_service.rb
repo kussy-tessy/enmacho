@@ -18,13 +18,11 @@ class KigurumisSaveService
     work = Work.find_or_create_by!(name: work_name)
     character = work.characters.find_or_create_by!(name: @params[:character_name])
     factory = @params[:factory_id].present? ? Factory.find(@params[:factory_id]) : nil
-    base = @params[:base_id].present? ? Base.find(@params[:base_id]) : nil
     @kigurumi.owner = owner
     @kigurumi.previous_owner = previous_owner if @params[:previous_owner_name].present?
     @kigurumi.customizer = customizerif @params[:customizer_name].present?
     @kigurumi.character = character
     @kigurumi.factory = factory
-    @kigurumi.base = base
     @kigurumi.remarks = @params[:remarks].presence || nil
     @kigurumi.save!
     kigurumi_images = @params['kigurumi_images']

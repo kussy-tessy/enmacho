@@ -99,9 +99,8 @@ autoComplete.characterWorkChain = (params) => {
 }
 
 // 工房関係
-$(function(){
+/*$(function(){
   $('#factoryId').on('change',function(){
-    console.log('Hi');
     const val = $(this).val();
     $.get({
       url: '/factories/bases.json',
@@ -117,4 +116,4 @@ $(function(){
       })
     });
   });
-});
+});*/

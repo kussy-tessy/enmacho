@@ -2,6 +2,8 @@ require './app/services/kigurumis_save_service'
 
 class KigurumisController < ApplicationController
   def index
+    @params = params
+    @kigurumis = Kigurumi.search(params)
     render 'index'
   end
 

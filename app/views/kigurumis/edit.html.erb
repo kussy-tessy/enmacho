@@ -33,10 +33,6 @@
         <%= f.select :factory_id, options_for_select([['', '']] + Factory.all.map{|factory| [factory.name, factory.id]}, @kigurumi.factory_id), {}, {id: :factoryId, class: ['form-control', 'col-sm-8']} %><br>
       </div>
       <div class="form-group row">
-        <label class="col-sm-4 control-label"><b>素体</b></label>
-        <%= f.select :base_id, options_for_select([['', '']] + (@kigurumi.factory&.bases&.map{|base| [base.name, base.id]}.to_a), @kigurumi.base_id), {}, {id: :baseId, class: ['form-control', 'col-sm-8']} %><br>
-      </div>
-      <div class="form-group row">
         <label class="col-sm-4 control-label"><b>製作者</b></label>
         <div class="input-group col-sm-8 p-0">
           <%= f.text_field :customizer_name, value: @kigurumi.customizer&.name, id: :customizerName, class: ['auto_complete', 'form-control'] %>
