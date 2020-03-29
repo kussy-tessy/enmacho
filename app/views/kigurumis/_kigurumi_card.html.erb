@@ -1,0 +1,12 @@
+<div class="col-md-4 mb-4">
+  <div class="card">
+    <h5 class="card-header"><%= kigurumi.owner&.name_with_twitter %></h5>
+    <div class="card-body clickable" data-href="<%= kigurumi_path(kigurumi) %>">
+        <%= kigurumi.character.name %><br>
+        <%= kigurumi.character.work&.name %>
+    </div>
+    <div class="card-footer">
+      <%= kigurumi.factory&.name %>
+    </div>
+  </div>
+</div>

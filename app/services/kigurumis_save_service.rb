@@ -24,6 +24,7 @@ class KigurumisSaveService
     @kigurumi.character = character
     @kigurumi.factory = factory
     @kigurumi.remarks = @params[:remarks].presence || nil
+    @kigurumi.show_year = @params[:show_year].presence || nil
     @kigurumi.save!
     kigurumi_images = @params['kigurumi_images']
     @kigurumi.kigurumi_images.destroy_all

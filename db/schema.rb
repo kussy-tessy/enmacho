@@ -12,14 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2020_02_22_085823) do
 
-  create_table "bases", force: :cascade do |t|
-    t.integer "factory_id"
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["factory_id"], name: "index_bases_on_factory_id"
-  end
-
   create_table "characters", force: :cascade do |t|
     t.string "name"
     t.string "yomigana"
@@ -51,6 +43,7 @@ ActiveRecord::Schema.define(version: 2020_02_22_085823) do
     t.integer "owner_id"
     t.integer "previous_owner_id"
     t.text "remarks"
+    t.integer "show_year"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["base_id"], name: "index_kigurumis_on_base_id"
@@ -71,8 +64,6 @@ ActiveRecord::Schema.define(version: 2020_02_22_085823) do
     t.integer "home_prefecture_id"
     t.integer "prefecture_id"
     t.string "twitter"
-    t.boolean "lives_with_parents"
-    t.boolean "is_student"
     t.text "remarks"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

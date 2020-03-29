@@ -7,10 +7,6 @@ class KigurumisController < ApplicationController
     render 'index'
   end
 
-  def search
-    @kigurumis = Kigurumi.search(params)
-  end
-
   def new
     @url = kigurumis_path
     @kigurumi = Kigurumi.new()

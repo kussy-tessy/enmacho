@@ -32,20 +32,18 @@ yuika = orig.characters.create!(name: '唯香', yomigana: 'ゆいか')
 # 工房・素体
 nuko = Factory.create!(name: 'ぬこパン')
 kigurumiya = Factory.create!(name: 'キグルミ屋(阿見工房、岡山)')
-goshiki = nuko.bases.create!(name: '5式')
-pshiki = nuko.bases.create!(name: 'P式')
 
 # 着ぐるみ
 kussy.kigurumis.create!([
-    {character: karuta, factory: nuko, base: goshiki, customizer: kussy},
+    {character: karuta, factory: nuko, customizer: kussy},
     {character: miku, factory: kigurumiya}
 ])
 shallen.kigurumis.create!([
-    {character: tenshi, factory: nuko, base: goshiki, customizer: shallen},
-    {character: kaguya, factory: nuko, base: goshiki, customizer: shallen},
-    {character: shana, factory: nuko, base: goshiki, customizer: shallen}
+    {character: tenshi, factory: nuko, customizer: shallen},
+    {character: kaguya, factory: nuko, customizer: shallen},
+    {character: shana, factory: nuko, customizer: shallen}
 ])
 mutufusa.kigurumis.create!([
-    {character: yuika, factory: nuko, base: goshiki, customizer: mutufusa},
-    {character: shoko, factory: nuko, base: pshiki, customizer: mutufusa}
+    {character: yuika, factory: nuko, customizer: mutufusa},
+    {character: shoko, factory: nuko, customizer: mutufusa}
 ])

@@ -53,6 +53,10 @@
         </div>
       </div>
       <div class="form-group row">
+        <label class="col-sm-4 control-label"><b>お披露目年</b></label>
+        <%= f.text_field :show_year, value: @kigurumi.show_year, class: ['col-sm-8', 'form-control'] %><br>
+      </div>
+      <div class="form-group row">
         <label class="col-sm-4 control-label"><b>備考</b></label>
         <%= f.text_area :remarks, value: @kigurumi.remarks, class: ['col-sm-8', 'form-control'] %><br>
       </div>

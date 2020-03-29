@@ -3,7 +3,7 @@
     <h1>着ぐるみの検索</h1>
   </div>
 
-  <div class="card card-body bg-light">
+  <div class="card card-body bg-light mb-4">
     <%= form_with method: 'get', local: true do |f| %>
       <div class="form-group row">
         <label class="col-sm-3 col-form-label">キャラクター名</label>
@@ -11,7 +11,7 @@
       </div>
       <div class="form-group row">
         <label class="col-sm-3 col-form-label">作品名</label>
-        <%= f.text_field :work_name, name: @params[:work_name], id: :workName, class: ['auto_complete', 'col-sm-8', 'form-control'] %><br>
+        <%= f.text_field :work_name, value: @params[:work_name], id: :workName, class: ['auto_complete', 'col-sm-8', 'form-control'] %><br>
       </div>
       <div class="form-group row">
         <label class="col-sm-3 col-form-label">工房</label>
@@ -19,15 +19,19 @@
       </div>
       <div class="row">
         <%= f.submit '検索', name: nil, class: ['btn', 'col-sm-2', 'offset-sm-4', 'btn-primary', 'mr-2'] %>
-        <%= link_to '新規登録', new_kigurumi_path, class: ['btn', 'col-sm-2', 'btn-danger'] %>
+        <%= link_to '新規登録', new_kigurumi_path, class: ['btn', 'col-sm-2', 'btn-danger', 'mr-2'] %>
       </div>
     <% end %> 
   </div>
 </container>
 
-<table id="search_result", class="table table-striped table-hover">
-<%= @kigurumis %>
-</table>
+<div id="searchResult">
+  <div class="row">
+    <% @kigurumis.each do |kigurumi| %>
+      <%= render :partial =>"kigurumi_card", :locals => {kigurumi: kigurumi} %>
+    <% end %>
+  </div>
+</div>
 
 <script>
 autoComplete.characterWorkChain({

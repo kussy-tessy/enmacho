@@ -16,6 +16,6 @@
  */
  @import "bootstrap";
 
- tbody tr.clickable:hover td{
-    cursor: pointer;
- }
+.card-body.clickable:hover{
+   cursor: pointer;
+}
