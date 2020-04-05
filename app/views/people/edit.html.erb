@@ -1,3 +1,5 @@
+<%= render 'shared/header' %>
+
 <div class="container mt-2 mb-2">
   <div class="card card-body col-lg-8 offset-lg-2 bg-light">
     <%= form_with model:@person, url:@url, method: @method, local: true, html: {autocomplete: 'off'} do |f| %>

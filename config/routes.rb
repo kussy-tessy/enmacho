@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root :to => 'static#index'
+
   resources :kigurumis do
     collection do
       get 'search'

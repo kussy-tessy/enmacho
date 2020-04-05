@@ -1,3 +1,6 @@
+<%= render 'shared/header' %>
+
+
 <div class="container mt-2">
   <div class="row mb-2">
     <a href="<%= edit_person_path(@person) %>" class="btn btn-primary col-sm-4 offset-sm-4">情報を編集する</a>
@@ -9,7 +12,7 @@
     </tr>
     <tr>
       <th>Twitter</th>
-      <td><%= "@#{@person.twitter}" %></td>
+      <td><a href="<%= "https://twitter.com/#{@person.twitter}" %>"><%= "@#{@person.twitter}" %></a></td>
     </tr>
     <tr>
       <th>他の名義</th>
@@ -17,11 +20,11 @@
     </tr>
     <tr>
       <th>都道府県・国</th>
-      <td><%= @person.prefecture.name %></td>
+      <td><%= @person.prefecture&.name %></td>
     </tr>
     <tr>
       <th>出身都道府県・国</th>
-      <td><%= @person.home_prefecture.name %></td>
+      <td><%= @person.home_prefecture&.name %></td>
     </tr>
     <tr>
       <th>誕生年</th>

@@ -1,3 +1,5 @@
+<%= render 'shared/header' %>
+
 <div class="container mt-2 mb-2">
   <% if @form.errors.any? %>
     <%= @form.errors.full_messages %>
@@ -101,7 +103,7 @@ autoComplete.personChain({
   }).done(function(data){
     $('#kigurumis li').remove();
     $.each(data, function(id, kigurumi){
-      $('#kigurumis ul').append($('<li>').text(kigurumi.character.name));
+      $('#kigurumis ul').append($('<li>').text(kigurumi.character.name_with_work));
     });
     $('#kigurumis').slideUp('slow');
     $('#kigurumis').slideDown('slow');

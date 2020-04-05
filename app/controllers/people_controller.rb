@@ -1,7 +1,9 @@
 class PeopleController < ApplicationController
   def index
     @params = params
-    @kigurumis = Kigurumi.search(params)
+    if request.query_parameters.any?
+      @people = Person.search(@params)
+    end
     render 'index'
   end
 
@@ -53,7 +55,7 @@ class PeopleController < ApplicationController
     twitter = params[:twitter].present? ? params[:twitter] : nil
     name = params[:name]
     @person = Person.find_or_initialize_by(twitter: twitter, name: name)
-    render json: @person.kigurumis.to_json(include: [:character])
+    render json: @person.kigurumis.to_json(include: {character: {methods: :name_with_work}})
   end
 
   private

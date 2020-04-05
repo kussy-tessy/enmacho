@@ -3,8 +3,25 @@ require 'date'
 class Person < ApplicationRecord
   attr_writer :birth_month, :birth_day
   validates :twitter, uniqueness: {message: '重複しています'}, allow_nil: true
+  validates :twitter, format: { with: /\A[_a-zA-Z0-9]*\z/, message: '英字のみ'}
+  validates :birth_year, numericality: {only_integer: true, allow_blank: true}
   validate :month_and_day_can_be_date
+
   before_save :combine_month_day
+
+  scope :search, -> (params) do
+    name_is(params[:name])
+      .twitter_is(params[:twitter])
+      .prefecture_id_is(params[:prefecture_id])
+      .birth_year_from_is(params[:birth_year_from])
+      .birth_year_to_is(params[:birth_year_to])
+  end
+
+  scope :name_is, -> (name) { where('name like ?', '%'+name+'%') if name.present?} 
+  scope :twitter_is, -> (twitter) { where('twitter like ?', '%'+twitter+'%') if twitter.present?} 
+  scope :prefecture_id_is, -> (prefecture_id) { where(prefecture_id: prefecture_id) if prefecture_id.present?} 
+  scope :birth_year_from_is, -> (birth_year_from) { where('birth_year <= ?', birth_year_from) if birth_year_from.present?} 
+  scope :birth_year_to_is, -> (birth_year_to) { where('birth_year >= ?', birth_year_to) if birth_year_to.present?} 
 
   def month_and_day_can_be_date
     if @birth_month.present? || @birth_day.present?
@@ -51,14 +68,19 @@ class Person < ApplicationRecord
 
   def age
     if self.birth_year
-      age_calc = (Date.today.strftime('%Y%m%d').to_i - Date.new(self.birth_year, self.birth_month, self.birth_day).strftime('%Y%m%d').to_i) / 10000
+      if self.birth_month && self.birth_day
+        age_calc = (Date.today.strftime('%Y%m%d').to_i - Date.new(self.birth_year, self.birth_month, self.birth_day).strftime('%Y%m%d').to_i) / 10000
+      else 
+        age_calc = Date.today.year - birth_year
+      end
       if self.birth_is_reliable
         return "#{age_calc}歳"
       else
         return "#{age_calc}歳？"
-      end
+      end 
+    else
+      return nil
     end
-    return nil
   end
 
   private

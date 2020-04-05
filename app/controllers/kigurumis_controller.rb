@@ -3,13 +3,16 @@
 class KigurumisController < ApplicationController
   def index
     @params = params
-    @kigurumis = Kigurumi.search(params)
+    if request.query_parameters.any?
+      @kigurumis = Kigurumi.search(params)
+    end
     render 'index'
   end
 
   def new
+    kigurumi = Kigurumi.new
+    @form = KigurumiForm.new(kigurumi)
     @url = kigurumis_path
-    @kigurumi = Kigurumi.new()
     @method = 'post'
     render 'edit'
   end
@@ -27,15 +30,26 @@ class KigurumisController < ApplicationController
   end
 
   def create
-    self.update
+    kigurumi = Kigurumi.new 
+    @form = KigurumiForm.new(kigurumi)
+    @form.update(sent_params)
+    kigurumi = @form.save
+    if kigurumi
+      redirect_to kigurumi_path(kigurumi)
+    else
+      @url = kigurumis_path
+      @method = 'post'
+      @form.attributes = sent_params
+      render 'edit'
+    end
   end
 
   def update
-    # service = KigurumisSaveService.new(sent_params)
-    kigurumi = Kigurumi.find(sent_params[:id])
+    kigurumi = Kigurumi.find(sent_params[:id]) 
     @form = KigurumiForm.new(kigurumi)
     @form.update(sent_params)
-    if @form.save
+    kigurumi = @form.save
+    if kigurumi
       redirect_to kigurumi_path(kigurumi)
     else
       @url = kigurumi_path(kigurumi)
