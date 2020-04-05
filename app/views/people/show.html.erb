@@ -1,0 +1,66 @@
+<div class="container mt-2">
+  <div class="row mb-2">
+    <a href="<%= edit_person_path(@person) %>" class="btn btn-primary col-sm-4 offset-sm-4">情報を編集する</a>
+  </div>
+  <table class="table">
+    <tr>
+      <th style="width:40%">名前</th>
+      <td style="width:60%"><%= @person.name %></td>
+    </tr>
+    <tr>
+      <th>Twitter</th>
+      <td><%= "@#{@person.twitter}" %></td>
+    </tr>
+    <tr>
+      <th>他の名義</th>
+      <td><%= @person.other_name %></td>
+    </tr>
+    <tr>
+      <th>都道府県・国</th>
+      <td><%= @person.prefecture.name %></td>
+    </tr>
+    <tr>
+      <th>出身都道府県・国</th>
+      <td><%= @person.home_prefecture.name %></td>
+    </tr>
+    <tr>
+      <th>誕生年</th>
+      <td><%= @person.birth_year_dsp %></td>
+    </tr>
+    <tr>
+      <th>誕生日</th>
+      <td><%= @person.birthday_dsp %></td>
+    </tr>
+    <tr>
+      <th>年齢</th>
+      <td><%= @person.age %></td>
+    </tr>
+    <tr>
+      <th>備考</th>
+      <td><%= @person.remarks %></td>
+    </tr>
+    <tr>
+      <th>着ぐるみの数</th>
+      <td><%= @person.kigurumis.count %></td>
+    </tr>
+  </table>
+
+  <div class="row">
+    <% @person.kigurumis.each do |kigurumi| %>
+      <%= render :partial =>"kigurumi_card", :locals => {kigurumi: kigurumi} %>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>
+<script>
+  $('.tweet-container').each(function(){
+    twttr.widgets.createTweet(
+      $(this).data('tweet-id'), 
+      $(this).get(0),
+      {
+        lang: 'ja'
+      }
+    );
+  });
+</script>

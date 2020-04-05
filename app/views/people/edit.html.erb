@@ -1,10 +1,10 @@
 <div class="container mt-2 mb-2">
   <div class="card card-body col-lg-8 offset-lg-2 bg-light">
-    <%= form_with url:@url, method: @method, local: true, html: {autocomplete: 'off'} do |f| %>
+    <%= form_with model:@person, url:@url, method: @method, local: true, html: {autocomplete: 'off'} do |f| %>
       <%= f.hidden_field :id, value: @person.id %>
       <div class="form-group row">
         <label class="col-sm-4 control-label"><b>名前</b></label>
-        <%= f.text_field :name, value: @person.name, id: :name, class: ['form-control', 'col-sm-8'] %>
+        <%= f.text_field :name, id: :name, class: ['form-control', 'col-sm-8'] %>
       </div>
       <div class="form-group row">
         <label class="col-sm-4 control-label"><b>Twitter</b></label>
@@ -12,35 +12,66 @@
           <div class="input-group-prepend">
             <span class="input-group-text">@</span>
           </div>
-        <%= f.text_field :twitter, value: @person.twitter, id: :twitter, class: ['form-control'] %>
+        <%= f.text_field :twitter, id: :twitter, class: ['form-control'] %>
         </div>
+        <% if @person.errors[:twitter].any? %>
+          <div class="text-danger col-sm-8 offset-sm-4">
+            <%= @person.errors.messages[:twitter][0] %>
+          </div>
+        <% end %>
       </div>
       <div class="form-group row">
         <label class="col-sm-4 control-label"><b>他の名義</b></label>
-        <%= f.text_field :other_name, value: @person.other_name, id: :otherName, class: ['col-sm-8', 'form-control'] %><br>
+        <%= f.text_field :other_name, id: :otherName, class: ['col-sm-8', 'form-control'] %><br>
       </div>
       <div class="form-group row">
         <label class="col-sm-4 control-label"><b>名前（他の名義）の読み</b></label>
-        <%= f.text_field :yomigana, value: @person.yomigana, id: :yomigana, class: ['col-sm-8', 'form-control'] %><br>
+        <%= f.text_field :yomigana, id: :yomigana, class: ['col-sm-8', 'form-control'] %><br>
       </div>
       <div class="form-group row">
         <label  class="col-sm-4 control-label"><b>都道府県・国</b></label>
-        <%= f.select :factory_id, options_for_select([['', '']] + Prefecture.all.map{|prefecture| [prefecture.name, prefecture.id]}, @person.prefecture_id), {}, {id: :prefecture, class: ['form-control', 'col-sm-8']} %><br>
+        <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, {include_blank: true}, {id: :prefecture, class: ['form-control', 'col-sm-8']} %><br>
       </div>
       <div class="form-group row">
-      <label  class="col-sm-4 control-label"><b>出身都道府県・国</b></label>
-      <%= f.select :factory_id, options_for_select([['', '']] + Prefecture.all.map{|prefecture| [prefecture.name, prefecture.id]}, @person.home_prefecture_id), {}, {id: :prefecture, class: ['form-control', 'col-sm-8']} %><br>
-    </div>
+        <label  class="col-sm-4 control-label"><b>出身都道府県・国</b></label>
+        <%= f.collection_select :home_prefecture_id, Prefecture.all, :id, :name, {include_blank: true}, {id: :homePrefecture, class: ['form-control', 'col-sm-8']} %><br>
+      </div>
       <div class="form-group row">
         <label class="col-sm-4 control-label"><b>誕生年</b></label>
-        <div class="input-group col-sm-8 p-0">
+        <div class="input-group col-sm-4 p-0">
           <div class="input-group-prepend">
             <div class="input-group-text">
-              <input type="checkbox" id="birthYearIsReliable">
+              <%= f.check_box :birth_is_reliable, id: :birthYearIsReliable, as: :boolean %>
               <label for="birthYearIsReliable" class="ml-2 mt-0 mb-0 mr-0">確実</label>
             </div>
           </div>
-          <%= f.text_field :twitter, value: @person.twitter, id: :twitter, class: ['form-control'] %>
+          <%= f.text_field :birth_year, id: :birthYear, class: ['form-control'] %>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 control-label"><b>誕生日</b></label>
+        <div class="input-group col-sm-4 p-0">
+          <%= f.text_field :birth_month, id: :month, class: ['form-control', 'input-group-prepend'] %>
+          <div class="input-group-append">
+            <div class="input-group-text">月</div>
+          </div>
+        </div>
+        <div class="input-group col-sm-4 p-0">
+          <%= f.text_field :birth_day, id: :year, class: ['form-control', 'input-group-prepend'] %>
+          <div class="input-group-append">
+          <div class="input-group-text">日</div>
+          </div>
+        </div>
+        <% if @person.errors[:birth_month].any? %>
+          <div class="text-danger col-sm-8 offset-sm-4">
+            <%= @person.errors.messages[:birth_month][0] %>
+          </div>
+        <% end %>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 control-label"><b>備考</b></label>
+        <div class="input-group col-sm-8 p-0">
+          <%= f.text_area :remarks, id: :remarks, class: ['form-control'] %>
         </div>
       </div>
       <div class="form-group row">

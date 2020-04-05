@@ -3,6 +3,12 @@ class KigurumisSaveService
     @params = params
   end
 
+  def validate
+    @error_messages = {}
+    @error_messages[:person_name] = '苦し紛れ'
+    return @error_messages
+  end
+
   def save
     @kigurumi = @params[:id].present? ? Kigurumi.find(@params[:id]) : Kigurumi.new
     twitter = @params[:twitter].presence || nil
@@ -20,7 +26,7 @@ class KigurumisSaveService
     factory = @params[:factory_id].present? ? Factory.find(@params[:factory_id]) : nil
     @kigurumi.owner = owner
     @kigurumi.previous_owner = previous_owner if @params[:previous_owner_name].present?
-    @kigurumi.customizer = customizerif @params[:customizer_name].present?
+    @kigurumi.customizer = customizer if @params[:customizer_name].present?
     @kigurumi.character = character
     @kigurumi.factory = factory
     @kigurumi.remarks = @params[:remarks].presence || nil

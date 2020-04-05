@@ -1,3 +1,3 @@
-$(document).on('click', '.card-body[data-href]', function(){
+$(document).on('click', '.clickable', function(){
     window.location.href = $(this).data('href');
 });

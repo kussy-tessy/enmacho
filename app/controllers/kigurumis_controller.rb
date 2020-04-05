@@ -1,4 +1,4 @@
-require './app/services/kigurumis_save_service'
+# require './app/models/KigurumiForm'
 
 class KigurumisController < ApplicationController
   def index
@@ -19,8 +19,9 @@ class KigurumisController < ApplicationController
   end
 
   def edit
-    @kigurumi = Kigurumi.find(params[:id])
-    @url = kigurumi_path(@kigurumi)
+    kigurumi = Kigurumi.find(params[:id])
+    @form = KigurumiForm.new(kigurumi)
+    @url = kigurumi_path(kigurumi)
     @method = 'put'
     render 'edit'
   end
@@ -30,13 +31,22 @@ class KigurumisController < ApplicationController
   end
 
   def update
-    service = KigurumisSaveService.new(sent_params)
-    kigurumi = service.save
-    redirect_to kigurumi_path(kigurumi)
+    # service = KigurumisSaveService.new(sent_params)
+    kigurumi = Kigurumi.find(sent_params[:id])
+    @form = KigurumiForm.new(kigurumi)
+    @form.update(sent_params)
+    if @form.save
+      redirect_to kigurumi_path(kigurumi)
+    else
+      @url = kigurumi_path(kigurumi)
+      @method = 'put'
+      @form.attributes = sent_params
+      render 'edit'
+    end
   end
 
   private
     def sent_params
-      params.permit(:id, :person_name, :twitter, :character_name, :work_name, :factory_id, :base_id, :customizer_name, :customizer_twitter, :previous_owner_name, :previous_owner_twitter, :remarks, kigurumi_images: [])
+      params.require(:kigurumi_form).permit(:id, :owner_name, :owner_twitter, :character_name, :work_name, :factory_id, :base_id, :customizer_name, :customizer_twitter, :previous_owner_name, :previous_owner_twitter, :show_year, :remarks, :kigurumi_images)
     end
 end

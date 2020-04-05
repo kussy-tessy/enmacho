@@ -13,12 +13,13 @@ class PeopleController < ApplicationController
   end
 
   def show
-    @kigurumi = Kigurumi.find(params[:id])
+    @person = Person.find(params[:id])
+    render 'show'
   end
 
   def edit
-    @kigurumi = Kigurumi.find(params[:id])
-    @url = kigurumi_path(@kigurumi)
+    @person = Person.find(params[:id])
+    @url = person_path(@person)
     @method = 'put'
     render 'edit'
   end
@@ -28,9 +29,12 @@ class PeopleController < ApplicationController
   end
 
   def update
-    service = KigurumisSaveService.new(sent_params)
-    kigurumi = service.save
-    redirect_to kigurumi_path(kigurumi)
+    @person = Person.find(sent_params[:id])
+    if @person.update(sent_params)
+      redirect_to person_path(@person)
+    else
+      render 'edit'
+    end
   end
 
   def auto_complete
@@ -54,6 +58,6 @@ class PeopleController < ApplicationController
 
   private
     def sent_params
-      params.permit(:id, :person_name, :twitter, :character_name, :work_name, :factory_id, :base_id, :customizer_name, :customizer_twitter, :previous_owner_name, :previous_owner_twitter, :remarks, kigurumi_images: [])
+      params.require(:person).permit(:id, :name, :twitter, :other_name, :yomigana, :prefecture_id, :home_prefecture_id, :birth_is_reliable, :birth_year, :birth_month, :birth_day, :remarks)
     end
 end
