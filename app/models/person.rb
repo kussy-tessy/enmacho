@@ -13,15 +13,23 @@ class Person < ApplicationRecord
     name_is(params[:name])
       .twitter_is(params[:twitter])
       .prefecture_id_is(params[:prefecture_id])
-      .birth_year_from_is(params[:birth_year_from])
-      .birth_year_to_is(params[:birth_year_to])
+      .age_from_is(params[:age_from])
+      .age_to_is(params[:age_to])
   end
 
   scope :name_is, -> (name) { where('name like ?', '%'+name+'%') if name.present?} 
   scope :twitter_is, -> (twitter) { where('twitter like ?', '%'+twitter+'%') if twitter.present?} 
   scope :prefecture_id_is, -> (prefecture_id) { where(prefecture_id: prefecture_id) if prefecture_id.present?} 
-  scope :birth_year_from_is, -> (birth_year_from) { where('birth_year <= ?', birth_year_from) if birth_year_from.present?} 
-  scope :birth_year_to_is, -> (birth_year_to) { where('birth_year >= ?', birth_year_to) if birth_year_to.present?} 
+  scope :age_from_is, -> (age_from) do
+    where('(birth_is_reliable = :reliable and ((birth_year = :year and birthday < :date) or birth_year < :year)) or (birth_is_reliable = :not_reliable and birth_year <= :year)',
+      {reliable: true, not_reliable: false, year: Date.today.year.to_i - age_from.to_i, date: Date.new(1900, Date.today.month, Date.today.day) }
+    ) if age_from.present? 
+    end
+  scope :age_to_is, -> (age_to) do
+    where('(birth_is_reliable = :reliable and (birth_year = :year and birthday > :date or birth_year > :year)) or (birth_is_reliable = :not_reliable and birth_year >= :year)',
+      {reliable: true, not_reliable: false, year: Date.today.year.to_i - age_to.to_i - 1, date: Date.new(1900, Date.today.month, Date.today.day) }
+    ) if age_to.present? 
+    end
 
   def month_and_day_can_be_date
     if @birth_month.present? || @birth_day.present?
@@ -86,7 +94,7 @@ class Person < ApplicationRecord
   private
     def combine_month_day
       if @birth_month.present? && @birth_day.present?
-        self.birthday = Date.new(2020, @birth_month.to_i, @birth_day.to_i)
+        self.birthday = Date.new(1900, @birth_month.to_i, @birth_day.to_i)
       end
     end
 end
