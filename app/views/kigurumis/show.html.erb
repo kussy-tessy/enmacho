@@ -53,7 +53,7 @@
 
 <script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>
 <script>
-  <%  @kigurumi.kigurumi_images.each_with_index do |image, i| %>
+  <% @kigurumi.kigurumi_images.each_with_index do |image, i| %>
     twttr.widgets.createTweet(
       '<%= image.tweet_id %>', 
       $('#tweet-container' + <%= i+1 %>).get(0),

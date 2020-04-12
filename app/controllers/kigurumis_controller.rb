@@ -63,6 +63,6 @@ class KigurumisController < ApplicationController
 
   private
     def sent_params
-      params.require(:kigurumi_form).permit(:id, :owner_name, :owner_twitter, :character_name, :work_name, :factory_id, :base_id, :customizer_name, :customizer_twitter, :previous_owner_name, :previous_owner_twitter, :show_year, :remarks, :hair_color, :hair_length, :mouth_open, :kigurumi_images)
+      params.require(:kigurumi_form).permit(:id, :owner_name, :owner_twitter, :character_name, :work_name, :factory_id, :base_id, :customizer_name, :customizer_twitter, :previous_owner_name, :previous_owner_twitter, :show_year, :remarks, :hair_color, :hair_length, :mouth_open, kigurumi_images: [])
     end
 end
