@@ -10,6 +10,12 @@ autoComplete.personChain = (params) => {
   const displayVal = params.displayVal;
   const onSelected = params.onSelected;
 
+  // 初期化
+  if(twitter.val() !== '') name.attr('readonly', true);
+  twitter.on('input', function(){
+    if($(this).val() === '') name.attr('readonly', false);
+  });
+
   // if(name.length * twitter.length == 0) return;
   name.autocomplete({
     source: nameUrl,
@@ -17,13 +23,13 @@ autoComplete.personChain = (params) => {
     minLength: 1,
     focus: (event, ui) => {
       name.val(ui.item[nameVal]);
-      // if(twitter.val() === '') parent.val(ui.item[twitterVal]);
       return false;
     },
     select: (event, ui) => {
       name.val(ui.item[nameVal]);
-      if(twitter.val() === '') twitter.val(ui.item[twitterVal]);
+      twitter.val(ui.item[twitterVal]);
       onSelected(name, twitter);
+      name.attr('readonly', true);
       return false;
     }
   }).data("ui-autocomplete")._renderItem = (ul, item) => {
@@ -36,13 +42,13 @@ autoComplete.personChain = (params) => {
     minLength: 1,
     focus: (event, ui) => {
       twitter.val(ui.item[twitterVal]);
-      // if(child.val() === '') parent.val(ui.item.name);
       return false;
     },
     select: (event, ui) => {
       twitter.val(ui.item[twitterVal]);
-      if(name.val() === '') name.val(ui.item[nameVal]);
-      onSelected(name, twitter)
+      name.val(ui.item[nameVal]);
+      onSelected(name, twitter);
+      name.attr('readonly', true);
       return false;
     }
   }).data("ui-autocomplete")._renderItem = function(ul, item) {

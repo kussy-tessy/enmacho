@@ -1,0 +1,22 @@
+<%= render 'shared/header' %>
+
+<div class="container mt-2">
+  <div class="row">
+    <div class="col-sm-8 offset-sm-2 alert alert-success"><%= @msg %></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <% if @num.in? (1..4).to_a %>
+      <%= render partial: 'kigurumis/kigurumi_card', locals: {kigurumi: @kigurumi} %>
+    <% end %>
+    <% if @num.in? (5..7).to_a %>
+      <%= render partial: 'person_card', locals: {person: @person, add: @add} %>
+    <% end %>
+    <% if @num.in? (8..8).to_a %>
+      <%= render partial: 'work_card', locals: {work: @work} %>
+    <% end %>
+    <% if @num.in? (9..9).to_a %>
+      <%= render partial: 'character_card', locals: {character: @character} %>
+    <% end %>
+  </div>
+</div>

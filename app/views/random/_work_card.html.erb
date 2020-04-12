@@ -1,0 +1,22 @@
+<div class="col-md-6 mb-4">
+  <div class="card card-body bg-light">
+    <%= form_with model: @work, method: 'put', local: true, html: {autocomplete: 'off'} do |f| %>
+      <%= f.hidden_field :id %>
+      <div class="form-group row">
+        <label class="col-sm-4 control-label"><b>作品名</b></label>
+        <div class="col-sm-8">
+          <%= @work.name %>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 control-label"><b>読みがな</b></label>
+        <div class="col-sm-8">
+          <%= f.text_field :yomigana,id: :yomigana, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="form-group row">
+        <%= f.submit '保存', class: ['btn', 'btn-primary', 'col-sm-2', 'offset-sm-5'] %>
+      </div>
+    <% end %>
+  </div>
+</div>

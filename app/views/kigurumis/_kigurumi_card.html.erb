@@ -2,7 +2,7 @@
   <div class="card">
     <h5 class="card-header"><a href="<%= person_path(kigurumi.owner) %>"><%= kigurumi.owner&.name_with_twitter %></a></h5>
     <div class="card-body clickable" data-href="<%= kigurumi_path(kigurumi) %>">
-        <h5><%= kigurumi.character.name_with_work %></h5>
+        <h5><%= kigurumi.character&.name_with_work || '？' %></h5>
         <% if kigurumi.kigurumi_images.any? %>
         　<div class="tweet-container" data-tweet-id="<%= kigurumi.kigurumi_images[0]&.tweet_id %>"></div>
         <% end %>

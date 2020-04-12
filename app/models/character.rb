@@ -3,6 +3,6 @@ class Character < ApplicationRecord
   has_many :kigurumis
 
   def name_with_work
-    "#{self.name}(#{self.work.name})"
+    "#{self.name}(#{self.work&.name || 'オリジナル'})"
   end
 end

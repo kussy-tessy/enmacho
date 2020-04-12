@@ -1,11 +1,11 @@
 <%= render 'shared/header' %>
 
 <div class="container mt-2 mb-2">
-  <% if @form.errors.any? %>
-    <%= @form.errors.full_messages %>
-  <% end %> 
+  <div class="alert alert-danger col-lg-8 offset-lg-2">
+    <h5 class="text-center">着ぐるみの編集</h5>
+  </div>
   <div class="card card-body col-lg-8 offset-lg-2 bg-light">
-    <%= form_with model: @form, url:@url, method: @method, local: true, html: {autocomplete: 'off'} do |f| %>
+    <%= form_with model: @form, url: @url, method: @method, local: true, html: {autocomplete: 'off'} do |f| %>
       <%= f.hidden_field :id %>
       <div class="form-group row">
         <label class="col-sm-4 control-label"><b>所有者</b></label>
@@ -16,6 +16,16 @@
           </div>
           <%= f.text_field :owner_twitter,id: :twitter, class: ['auto_complete', 'form-control'] %>
         </div>
+        <% if @form.errors[:owner_name].present? %>
+          <div class="col-sm-8 offset-sm-4">          
+            <span class="text-danger"><%= @form.errors[:owner_name][0] %></span> 
+          </div>
+        <% end %>
+        <% if @form.errors[:owner_twitter].present? %>
+          <div class="col-sm-8 offset-sm-4">          
+            <span class="text-danger"><%= @form.errors[:owner_name][0] %></span> 
+          </div>
+        <% end %>
       </div>
       <div class="row">
         <% if @method == 'post' %>
@@ -28,10 +38,23 @@
       <div class="form-group row">
         <label class="col-sm-4 control-label"><b>キャラクター名</b></label>
         <%= f.text_field :character_name, id: :characterName, class: ['auto_complete', 'col-sm-8', 'form-control'] %><br>
+        <% if @form.errors[:character_name].present? %>
+        <div class="col-sm-8 offset-sm-4">          
+          <span class="text-danger"><%= @form.errors[:character_name][0] %></span> 
+        </div>
+      <% end %>
       </div>
       <div class="form-group row">
         <label class="col-sm-4 control-label"><b>作品名</b></label>
-        <%= f.text_field :work_name,  id: :workName, class: ['auto_complete', 'col-sm-8', 'form-control'] %><br>
+        <div class="input-group col-sm-8 p-0">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <%= f.check_box :is_original, id: :isOriginal, as: :boolean %>
+              <label for="isOriginal" class="ml-2 mt-0 mb-0 mr-0">オリジナル</label>
+            </div>
+          </div>
+          <%= f.text_field :work_name,  id: :workName, class: ['auto_complete', 'form-control'] %>
+        </div>
       </div>
       <div class="form-group row">
         <label  class="col-sm-4 control-label"><b>工房</b></label>
@@ -46,6 +69,16 @@
           </div>
           <%= f.text_field :customizer_twitter, id: :customizerTwitter, class: ['auto_complete', 'form-control'] %>
         </div>
+        <% if @form.errors[:customizer_name].present? %>
+        <div class="col-sm-8 offset-sm-4">          
+          <span class="text-danger"><%= @form.errors[:customizer_name][0] %></span> 
+        </div>
+        <% end %>
+        <% if @form.errors[:customizer_twitter].present? %>
+          <div class="col-sm-8 offset-sm-4">          
+            <span class="text-danger"><%= @form.errors[:customizer_twitter][0] %></span> 
+          </div>
+        <% end %>
       </div>
       <div class="form-group row">
         <label class="col-sm-4 control-label"><b>以前の所有者</b></label>
@@ -56,6 +89,16 @@
           </div>
           <%= f.text_field :previous_owner_twitter, id: :previousOwnerTwitter, class: ['auto_complete', 'form-control'] %>
         </div>
+        <% if @form.errors[:previous_owner_name].present? %>
+        <div class="col-sm-8 offset-sm-4">          
+          <span class="text-danger"><%= @form.errors[:previous_owner_name][0] %></span> 
+        </div>
+        <% end %>
+        <% if @form.errors[:previous_owner_twitter].present? %>
+          <div class="col-sm-8 offset-sm-4">          
+            <span class="text-danger"><%= @form.errors[:previous_owner_twitter][0] %></span> 
+          </div>
+        <% end %>
       </div>
       <div class="form-group row">
         <label class="col-sm-4 control-label"><b>お披露目年</b></label>
@@ -66,23 +109,59 @@
         <%= f.text_area :remarks, class: ['col-sm-8', 'form-control'] %><br>
       </div>
       <div class="form-group row">
-      <label class="col-sm-4 control-label"><b>画像</b></label>
-      <div class="col-sm-8 p-0">
-        <% (0..2).each do |i| %>
-          <%= f.text_field 'kigurumi_images[]', value: @form.kigurumi_images[i], class: 'form-control'  %>
-        <% end %>
+        <label class="col-sm-4 control-label"><b>髪の色</b></label>
+        <%= f.select :hair_color, options_for_select(Kigurumi.hair_colors, @form.hair_color), {include_blank: true}, class: ['col-sm-8', 'form-control'] %>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 control-label"><b>髪の長さ</b></label>
+        <%= f.select :hair_length, options_for_select(Kigurumi.hair_lengths, @form.hair_length), {include_blank: true}, class: ['col-sm-8', 'form-control'] %>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 control-label"><b>口開き/口閉じ</b></label>
+        <%= f.select :mouth_open, options_for_select(Kigurumi.mouth_opens, @form.mouth_open), {include_blank: true}, class: ['col-sm-8', 'form-control'] %>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 control-label"><b>画像</b></label>
+        <div class="col-sm-8 p-0">
+          <% (0..2).each do |i| %>
+            <%= f.text_field 'kigurumi_images[]', value: @form.kigurumi_images[i], class: 'form-control'  %>
+          <% end %>
         </div>
       </div>
 
       <div class="form-group row">
-        <%= f.submit '登録', class:'btn btn-danger btn-block col-sm-4 offset-sm-4' %>
+        <%= f.submit '登録', class:'btn btn-info btn-block col-sm-3 offset-sm-4' %>
+        <% if @method == 'put' %>
+          <input type="button" id="destroy" class="btn btn-danger col-sm-2 ml-2" value="削除">
+          <%= f.submit '本当に削除', id: 'destoryConfirm', class:'d-none btn btn-danger col-sm-3' %>
+        <% end %>
       </div>
     <% end %>
   </div>
 </div>
 
 <script>
+var KIGURUMI_EDIT = KIGURUMI_EDIT || {};
+KIGURUMI_EDIT.toggleWork = () => {
+  if($('#isOriginal').prop('checked')){
+    $('#workName').attr('readonly', true);
+    $('#workName').val('');
+  } else {
+    $('#workName').attr('readonly', false);
+  }
+}
+
 $('#kigurumis').css('display', 'none');
+
+$('#destroyConfirm').on('click', function(){
+  $(this).addClass('d-none');
+  $('#destoryConfirm').removeClass('d-none');
+});
+
+$('#isOriginal').on('change', KIGURUMI_EDIT.toggleWork);
+
+// 初期化
+KIGURUMI_EDIT.toggleWork();
 
 autoComplete.personChain({
   name: '#personName.auto_complete',
@@ -103,6 +182,7 @@ autoComplete.personChain({
   }).done(function(data){
     $('#kigurumis li').remove();
     $.each(data, function(id, kigurumi){
+      kigurumi.character = kigurumi.character || {name_with_work: '？'};
       $('#kigurumis ul').append($('<li>').text(kigurumi.character.name_with_work));
     });
     $('#kigurumis').slideUp('slow');

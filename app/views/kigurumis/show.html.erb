@@ -7,7 +7,7 @@
   <table class="table">
   <tr>
     <th>キャラクター</th>
-    <td><%= @kigurumi.character.name_with_work %></td>
+    <td><%= @kigurumi.character&.name_with_work || '？' %></td>
   </tr>
     <tr>
       <th>所有者</th>
@@ -32,6 +32,18 @@
     <tr>
       <th>備考</th>
       <td><%= @kigurumi.remarks %></td>
+    </tr>
+    <tr>
+      <th>髪の色</th>
+      <td><%= @kigurumi.hair_color %></td>
+    </tr>
+    <tr>
+      <th>髪の長さ</th>
+      <td><%= @kigurumi.hair_length %></td>
+    </tr>
+    <tr>
+      <th>口開き/口閉じ</th>
+      <td><%= @kigurumi.mouth_open %></td>
     </tr>
   </table>
   <div class="mx-auto" style="width:70%;min-width:450px;" id="tweet-container1"></div>

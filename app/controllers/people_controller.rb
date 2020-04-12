@@ -27,14 +27,35 @@ class PeopleController < ApplicationController
   end
 
   def create
-    self.update
+    @person = Person.new
+    # if params[:commit] == '本当に削除'
+      # @person.destroy!
+      # redirect_to 'index'
+      # return
+    # end
+    if @person.update(sent_params)
+      redirect_to person_path(@person)
+    else
+      @url = people_path
+      @method = 'post'
+      @person.attributes = sent_params
+      render 'edit'
+    end
   end
 
   def update
     @person = Person.find(sent_params[:id])
+    if params[:commit] == '本当に削除'
+      @person.destroy!
+      redirect_to people_path
+      return
+    end
     if @person.update(sent_params)
       redirect_to person_path(@person)
     else
+      @url = person_path(@person)
+      @method = 'put'
+      @person.attributes = sent_params
       render 'edit'
     end
   end

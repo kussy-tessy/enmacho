@@ -2,12 +2,13 @@ require 'date'
 
 class Person < ApplicationRecord
   attr_writer :birth_month, :birth_day
-  validates :twitter, uniqueness: {message: '重複しています'}, allow_nil: true
-  validates :twitter, format: { with: /\A[_a-zA-Z0-9]*\z/, message: '英字のみ'}
-  validates :birth_year, numericality: {only_integer: true, allow_blank: true}
+  validates :name, presence: {message: '必須です'}
+  validates :twitter, uniqueness: {message: '他のデータと重複しています'}, allow_nil: true
+  validates :twitter, format: { with: /\A[_a-zA-Z0-9]*\z/, message: '不正なTwitterIDです'}
+  validates :birth_year, numericality: {only_integer: true, allow_blank: true, message: '数字だけにしてください'}
   validate :month_and_day_can_be_date
 
-  before_save :combine_month_day
+  before_save :combine_month_day, :to_nil
 
   scope :search, -> (params) do
     name_is(params[:name])
@@ -95,6 +96,15 @@ class Person < ApplicationRecord
     def combine_month_day
       if @birth_month.present? && @birth_day.present?
         self.birthday = Date.new(1900, @birth_month.to_i, @birth_day.to_i)
+      else
+        self.birthday = nil
       end
+    end
+
+    def to_nil
+      self.twitter = self.twitter.presence
+      self.other_name = self.other_name.presence
+      self.yomigana = self.yomigana.presence
+      self.remarks = self.remarks.presence
     end
 end

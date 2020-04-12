@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root :to => 'static#index'
 
+  get 'random/edit' => 'random#edit', as: :random_edit_path
+
   resources :kigurumis do
     collection do
       get 'search'
@@ -14,6 +16,9 @@ Rails.application.routes.draw do
       get 'auto_complete_twitter'
     end
   end
+
+  resources :works, only: [:update]
+  resources :characters, only: [:update]
 
   get 'characters/auto_complete', as: :auto_complete_characters
   get 'works/auto_complete', as: :auto_complete_works
