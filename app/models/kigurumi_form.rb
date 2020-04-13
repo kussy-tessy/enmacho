@@ -90,7 +90,7 @@ class KigurumiForm
     @kigurumi.hair_length = self.hair_length.present? ? self.hair_length.to_i : nil
     @kigurumi.mouth_open = self.mouth_open.present? ? self.mouth_open.to_i : nil
     @kigurumi.save!
-    kigurumi_images = self.kigurumi_images
+    kigurumi_images = self.kigurumi_images&.filter{|url| url.present?}
     @kigurumi.kigurumi_images.destroy_all
     @kigurumi.kigurumi_images.create!(kigurumi_images.map{|image| {url: image} })
     return @kigurumi

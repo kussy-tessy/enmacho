@@ -48,7 +48,7 @@
       </table>
     </div>
     <div class="col-lg-6">
-      <% if @kigurumi.kigurumi_images.any? %>
+      <% if @kigurumi.kigurumi_images.empty? %>
         <div class="alert alert-danger p-auto"">
           <h5 class="text-center">No Image</h6>
         </div>
