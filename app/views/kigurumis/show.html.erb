@@ -46,20 +46,13 @@
       <td><%= @kigurumi.mouth_open %></td>
     </tr>
   </table>
-  <div class="mx-auto" style="width:70%;min-width:450px;" id="tweet-container1"></div>
-  <div class="mx-auto" style="width:70%;min-width:450px;" id="tweet-container2"></div>
-  <div class="mx-auto" style="width:70%;min-width:450px;" id="tweet-container3"></div>
+  <div classs="row">
+    <div class="col-sm-6 offset-sm-3">
+      <div class="mx-auto tweet-container" data-tweet-id="<%= @kigurumi.kigurumi_images[0]&.tweet_id %>"></div>
+      <div class="mx-auto tweet-container" data-tweet-id="<%= @kigurumi.kigurumi_images[1]&.tweet_id %>"></div>
+      <div class="mx-auto tweet-container" data-tweet-id="<%= @kigurumi.kigurumi_images[2]&.tweet_id %>"></div>
+    </div>
+  </div>
 </div>
 
 <script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>
-<script>
-  <% @kigurumi.kigurumi_images.each_with_index do |image, i| %>
-    twttr.widgets.createTweet(
-      '<%= image.tweet_id %>', 
-      $('#tweet-container' + <%= i+1 %>).get(0),
-      {
-        lang: 'ja'
-      }
-    );
-  <% end %>
-</script>

@@ -44,10 +44,15 @@
     </tr>
     <tr>
       <th>着ぐるみの数</th>
-      <td><%= @person.kigurumis.count %></td>
+      <td>          
+        <%= @person.kigurumis.count %>
+      </td>
     </tr>
   </table>
 
+  <div class="row">
+    <a href="<%= new_kigurumi_path + "?name=#{@person.name}&twitter=#{@person.twitter}" %>" class="btn btn-primary float-right col-sm-6 offset-3 mb-2">新しい着ぐるみを追加</a>
+  </div>
   <div class="row">
     <% @person.kigurumis.each do |kigurumi| %>
       <%= render :partial =>"kigurumi_card", :locals => {kigurumi: kigurumi} %>
@@ -56,14 +61,3 @@
 </div>
 
 <script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>
-<script>
-  $('.tweet-container').each(function(){
-    twttr.widgets.createTweet(
-      $(this).data('tweet-id'), 
-      $(this).get(0),
-      {
-        lang: 'ja'
-      }
-    );
-  });
-</script>

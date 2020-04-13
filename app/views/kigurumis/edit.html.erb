@@ -130,10 +130,10 @@
       </div>
 
       <div class="form-group row">
-        <%= f.submit '登録', class:'btn btn-info btn-block col-sm-3 offset-sm-4' %>
+        <%= f.submit '登録', class:'btn btn-info btn-block col-sm-3 offset-sm-4 mr-2 mb-2' %>
         <% if @method == 'put' %>
-          <input type="button" id="destroy" class="btn btn-danger col-sm-2 ml-2" value="削除">
-          <%= f.submit '本当に削除', id: 'destoryConfirm', class:'d-none btn btn-danger col-sm-3' %>
+          <input type="button" id="destroy" class="btn btn-danger col-sm-2 mr-2 mb-2" value="削除">
+          <%= f.submit '本当に削除', id: 'destoryConfirm', class:'d-none btn btn-danger col-sm-3 mr-2 mb-2' %>
         <% end %>
       </div>
     <% end %>

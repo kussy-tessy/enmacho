@@ -49,7 +49,7 @@ class KigurumiForm
     self.hair_color = kigurumi.hair_color_before_type_cast
     self.hair_length = kigurumi.hair_length_before_type_cast
     self.mouth_open = kigurumi.mouth_open_before_type_cast
-    self.kigurumi_images = kigurumi.kigurumi_images&.map(&:url)
+    self.kigurumi_images = kigurumi.kigurumi_images&.map(&:url).filter{|url| url.present?}
   end
 
   def update(params)

@@ -15,7 +15,7 @@ class RandomController < ApplicationController
           break if @kigurumi.present?
         when 3
           @msg = '以下の着ぐるみさんの髪の色、髪の長さ、口開きか口閉じかは分かりますか？'
-          @kigurumi = Kigurumi.left_joins(:kigurumi_images).where.not('kigurumi_images.id': nil).sample
+          @kigurumi = Kigurumi.where('hair_color IS NULL OR hair_length IS NULL OR mouth_open IS NULL').left_joins(:kigurumi_images).where.not('kigurumi_images.id': nil).sample
           break if @kigurumi.present?
         when 4
           @msg = '以下の着ぐるみさんの工房は分かりますか？'
