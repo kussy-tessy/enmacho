@@ -20,14 +20,14 @@
         <%= f.select :factory_id, options_for_select(Factory.all.map{|e| [e.name, e.id]}, @params[:factory_id]), {include_blank: true}, {id: :factoryId, class:['auto_complete', 'col-sm-6', 'form-control']} %><br>
       </div>
       <div class="form-group row">
-        <div class="col-sm-3 col-form-label">外観</div>
+        <div class="col-sm-2 col-form-label">外観</div>
         <label class="col-sm-2 col-form-label">髪の色</label>
         <%= f.select :hair_color, options_for_select(Kigurumi.hair_colors, @params[:hair_color]), {include_blank: true}, {id: :hairColor, class:['col-sm-2', 'form-control']} %>
         <label class="col-sm-2 pr-0 col-form-label">髪の長さ</label>
         <%= f.select :hair_length, options_for_select(Kigurumi.hair_lengths, @params[:hair_length]), {include_blank: true}, {id: :hairLength, class:['col-sm-2', 'form-control']} %>
       </div>
       <div class="form-group row">
-        <div class="col-sm-3"></div>
+        <div class="col-sm-2"></div>
         <label class="col-sm-2 col-form-label">口開き・口閉じ</label>
         <%= f.select :mouth_open, options_for_select(Kigurumi.mouth_opens, @params[:mouth_open]), {include_blank: true}, {id: :mouthOpen, class:['col-sm-2', 'form-control']} %>
       </div>
@@ -40,6 +40,12 @@
 </container>
 
 <div id="searchResult">
+  <% if @kigurumis %>
+    <div class="alert alert-success">
+      <b><%= @kigurumis.count %></b>件のデータが見つかりました。
+    </div>
+  <% end %>
+  </div>
   <div class="row">
     <% @kigurumis&.each do |kigurumi| %>
       <%= render :partial =>"kigurumi_card", :locals => {kigurumi: kigurumi} %>

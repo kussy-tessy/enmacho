@@ -33,6 +33,14 @@
     </div>
   <% end %>
 </div>
+
+
+<% if @people %>
+  <div class="alert alert-success">
+    <b><%= @people.count %></b>件のデータが見つかりました。
+  </div>
+<% end %>
+
 <div class="row">
   <% @people&.each do |person| %>
     <%= render partial: 'person_card', locals: {person: person} %>

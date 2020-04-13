@@ -31,7 +31,7 @@
         <% if @method == 'post' %>
           <div id="kigurumis" class="col-sm-8 offset-sm-4 alert alert-success">
             <h5>既に登録されている着ぐるみ</h5>
-            <ul></ul>
+            <ul class="mb-2"></ul>
           </div>
         <% end %>
       </div>
@@ -183,8 +183,11 @@ autoComplete.personChain({
     $('#kigurumis li').remove();
     $.each(data, function(id, kigurumi){
       kigurumi.character = kigurumi.character || {name_with_work: '？'};
-      $('#kigurumis ul').append($('<li>').text(kigurumi.character.name_with_work));
+      $('#kigurumis ul').append($('<li><a href=' + kigurumi.url + ' class="alert-link">' + kigurumi.character.name_with_work + '</a>'));
     });
+    if(data.length == 0){
+      $('#kigurumis ul').append($('<li>').text('まだ登録されていません。'));
+    }
     $('#kigurumis').slideUp('slow');
     $('#kigurumis').slideDown('slow');
   });

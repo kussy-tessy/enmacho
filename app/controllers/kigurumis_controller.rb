@@ -3,7 +3,7 @@
 class KigurumisController < ApplicationController
   def index
     @params = params
-    if request.query_parameters.any?
+    if request.query_parameters.values.filter(&:present?).any?
       @kigurumis = Kigurumi.search(params)
     end
     render 'index'

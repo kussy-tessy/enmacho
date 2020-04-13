@@ -31,11 +31,11 @@ class RandomController < ApplicationController
           @person = Person.where(birth_year: nil).or(Person.where(birth_is_reliable: false)).sample
           break if @person.present?
         when 7
-          @msg = '以下の人の居住都道府県は分かりますか？'
+          @msg = '以下の人の居住都道府県は分かりますか？　ひらがなのみで入力してください。'
           @person = Person.where(prefecture: nil).sample
           break if @person.present?
         when 8
-          @msg = '以下の作品の読み方は分かりますか？'
+          @msg = '以下の作品の読み方は分かりますか？　ひらがなのみで入力してください。'
           @work = Work.where(yomigana: nil).sample
           break if @work.present?
         when 9

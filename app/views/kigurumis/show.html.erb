@@ -2,55 +2,60 @@
 
 <div class="container mt-2">
   <div class="row mb-2">
-    <a href="<%= edit_kigurumi_path(@kigurumi) %>" class="btn btn-primary col-sm-4 offset-sm-4">情報を編集する</a>
-  </div>
-  <table class="table">
-  <tr>
-    <th>キャラクター</th>
-    <td><%= @kigurumi.character&.name_with_work || '？' %></td>
-  </tr>
-    <tr>
-      <th>所有者</th>
-      <td><%= @kigurumi.owner&.name_with_twitter %></td>
-    </tr>
-    <tr>
-      <th>工房</th>
-      <td><%= @kigurumi.factory&.name %></td>
-    </tr>
-    <tr>
-      <th>製作者</th>
-      <td><%= @kigurumi.customizer&.name_with_twitter %></td>
-    </tr>
-    <tr>
-      <th>以前の所有者</th>
-      <td><%= @kigurumi.previous_owner&.name_with_twitter %></td>
-    </tr>
-    <tr>
-    <th>お披露目年</th>
-      <td><%= @kigurumi.show_year %></td>
-    </tr>
-    <tr>
-      <th>備考</th>
-      <td><%= @kigurumi.remarks %></td>
-    </tr>
-    <tr>
-      <th>髪の色</th>
-      <td><%= @kigurumi.hair_color %></td>
-    </tr>
-    <tr>
-      <th>髪の長さ</th>
-      <td><%= @kigurumi.hair_length %></td>
-    </tr>
-    <tr>
-      <th>口開き/口閉じ</th>
-      <td><%= @kigurumi.mouth_open %></td>
-    </tr>
-  </table>
-  <div classs="row">
-    <div class="col-sm-6 offset-sm-3">
-      <div class="mx-auto tweet-container" data-tweet-id="<%= @kigurumi.kigurumi_images[0]&.tweet_id %>"></div>
-      <div class="mx-auto tweet-container" data-tweet-id="<%= @kigurumi.kigurumi_images[1]&.tweet_id %>"></div>
-      <div class="mx-auto tweet-container" data-tweet-id="<%= @kigurumi.kigurumi_images[2]&.tweet_id %>"></div>
+    <div class="col-lg-6">
+      <a href="<%= edit_kigurumi_path(@kigurumi) %>" class="btn btn-primary col-lg-4 offset-lg-4 mb-2">情報を編集する</a>
+      <table class="table">
+        <tr>
+          <th>キャラクター</th>
+          <td><%= @kigurumi.character&.name_with_work || '？' %></td>
+        </tr>
+        <tr>
+          <th>所有者</th>
+          <td><%= link_to @kigurumi.owner&.name_with_twitter,  kigurumi_path(@kigurumi) %></td>
+        </tr>
+        <tr>
+          <th>工房</th>
+          <td><%= @kigurumi.factory&.name %></td>
+        </tr>
+        <tr>
+          <th>製作者</th>
+          <td><%= @kigurumi.customizer&.name_with_twitter %></td>
+        </tr>
+        <tr>
+          <th>以前の所有者</th>
+          <td><%= @kigurumi.previous_owner&.name_with_twitter %></td>
+        </tr>
+        <tr>
+        <th>お披露目年</th>
+          <td><%= @kigurumi.show_year %></td>
+        </tr>
+        <tr>
+          <th>備考</th>
+          <td><%= @kigurumi.remarks %></td>
+        </tr>
+        <tr>
+          <th>髪の色</th>
+          <td><%= @kigurumi.hair_color %></td>
+        </tr>
+        <tr>
+          <th>髪の長さ</th>
+          <td><%= @kigurumi.hair_length %></td>
+        </tr>
+        <tr>
+          <th>口開き/口閉じ</th>
+          <td><%= @kigurumi.mouth_open %></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-lg-6">
+      <% if @kigurumi.kigurumi_images.any? %>
+        <div class="alert alert-danger p-auto"">
+          <h5 class="text-center">No Image</h6>
+        </div>
+      <% end %>
+      <div class="tweet-container" data-tweet-id="<%= @kigurumi.kigurumi_images[0]&.tweet_id %>"></div>
+      <div class="tweet-container" data-tweet-id="<%= @kigurumi.kigurumi_images[1]&.tweet_id %>"></div>
+      <div class="tweet-container" data-tweet-id="<%= @kigurumi.kigurumi_images[2]&.tweet_id %>"></div>
     </div>
   </div>
 </div>

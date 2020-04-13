@@ -47,4 +47,8 @@ class Kigurumi < ApplicationRecord
   scope :hair_color_is, -> (hair_color) { where(hair_color: hair_color) if hair_color.present? }
   scope :hair_length_is, -> (hair_length) { where(hair_length: hair_length) if hair_length.present? }
   scope :mouth_open_is, -> (mouth_open) { where(mouth_open: mouth_open) if mouth_open.present? }
+
+  def url
+    Rails.application.routes.url_helpers.kigurumi_path(self)
+  end
 end
