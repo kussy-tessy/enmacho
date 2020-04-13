@@ -11,7 +11,7 @@
         </tr>
         <tr>
           <th>所有者</th>
-          <td><%= link_to @kigurumi.owner&.name_with_twitter,  kigurumi_path(@kigurumi) %></td>
+          <td><%= link_to @kigurumi.owner&.name_with_twitter,  person_path(@kigurumi.owner) %></td>
         </tr>
         <tr>
           <th>工房</th>
