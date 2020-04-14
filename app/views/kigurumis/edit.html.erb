@@ -55,6 +55,9 @@
           </div>
           <%= f.text_field :work_name,  id: :workName, class: ['auto_complete', 'form-control'] %>
         </div>
+        <div class="col-sm-8 offset-sm-4">          
+          <span class="text-danger"><%= @form.errors[:work_name][0] %></span> 
+        </div>
       </div>
       <div class="form-group row">
         <label  class="col-sm-4 control-label"><b>工房</b></label>
@@ -95,7 +98,7 @@
         </div>
         <% end %>
         <% if @form.errors[:previous_owner_twitter].present? %>
-          <div class="col-sm-8 offset-sm-4">          
+          <div class="col-sm-8 offset-sm-4">      
             <span class="text-danger"><%= @form.errors[:previous_owner_twitter][0] %></span> 
           </div>
         <% end %>
@@ -126,6 +129,9 @@
           <% (0..2).each do |i| %>
             <%= f.text_field :kigurumi_images, name: 'kigurumi_form[kigurumi_images][]', value: @form.kigurumi_images[i], class: 'form-control'  %>
           <% end %>
+        </div>
+        <div class="col-sm-8 offset-sm-4">      
+          <span class="text-danger"><%= @form.errors[:kigurumi_images][0] %></span> 
         </div>
       </div>
 

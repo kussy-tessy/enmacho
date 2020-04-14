@@ -82,7 +82,7 @@ class Person < ApplicationRecord
       else 
         age_calc = Date.today.year - birth_year
       end
-      if self.birth_is_reliable
+      if self.birth_is_reliable && self.birth_day.present?
         return "#{age_calc}歳"
       else
         return "#{age_calc}歳？"

@@ -1,9 +1,9 @@
 class KigurumiForm
   include ActiveModel::Model
   attr_accessor :id, :owner_name, :owner_twitter, :character_name, :work_name, 
-      :factory_id, :customizer_name, :customizer_twitter, :previous_owner_name, 
+      :is_original, :factory_id, :customizer_name, :customizer_twitter, :previous_owner_name, 
       :previous_owner_twitter, :show_year, :remarks, :hair_color,
-      :hair_length, :mouth_open, :is_original, :kigurumi_images
+      :hair_length, :mouth_open, :kigurumi_images
 
   validates :owner_name, presence: {message: 'この項目は必須です'}
   validates :owner_twitter, format: { with: /\A[_a-zA-Z0-9]*\z/, message: '無効なTwitterIDです'}
@@ -14,23 +14,37 @@ class KigurumiForm
   validates :show_year, numericality: {only_integer: true, allow_blank: true, message: '数字だけにしてください'}
   validate :kigurumi_images_should_twitter_url
   validate :should_include_character_or_kigurumi_images
+  validate :should_include_character_name_when_has_work_name
+  validate :should_include_work_name_when_is_not_original
 
   def kigurumi_images_should_twitter_url
     @kigurumi_images.each do |image|
-      if image.present? && !image.match(/https:\/\/twitter.com\/.+\/status\/\d+/)
-        errors.add(:kigurumi_images, '無効なURLが含まれています')
+      if image.present? && !image.match?(/https:\/\/twitter.com\/.+\/status\/\d+$/)
+        errors.add(:kigurumi_images, '無効なURLが含まれています。TwitterのURLを入力してください。')
       end
     end
     return true
   end
 
   def should_include_character_or_kigurumi_images
-    if @character_name.empty? && @kigurumi_images.empty?
+    if @character_name.empty? && @kigurumi_images.filter{|url| url.present?}.empty?
       errors.add(:character_name, 'この項目は必須です。もしくは画像を入力してください')
     end
     return true
   end
 
+  def should_include_character_name_when_has_work_name
+    if @work_name.present? && @character_name.empty?
+      errors.add(:character_name, 'この項目は必須です。作品名だけを登録することはできません')
+    end
+  end
+
+  def should_include_work_name_when_is_not_original
+    # debugger
+    if @work_name.empty? && @is_original.to_i == 0
+      errors.add(:work_name, 'オリジナルでない場合、この項目は必須です。')
+    end
+  end
 
   def initialize(kigurumi)
     self.id = kigurumi.id

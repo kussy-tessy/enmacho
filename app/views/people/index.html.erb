@@ -22,14 +22,14 @@
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">年齢</label>
       <div class="form-inline">
-        <%= f.text_field :age_from, value: @params[:age_from], id: :ageFrom, class:['col-sm-5', 'form-control'] %><br>
+        <%= f.text_field :age_from, value: @params[:age_from], id: :ageFrom, class:['col-sm-5', 'col-4', 'form-control'] %><br>
         <span class="px-2">〜</span>
-        <%= f.text_field :age_to, value: @params[:age_to], id: :ageTo, class:['col-sm-5', 'form-control'] %><br>
+        <%= f.text_field :age_to, value: @params[:age_to], id: :ageTo, class:['col-sm-5', 'col-4', 'form-control'] %><br>
       </div>
     </div>
     <div class="row">
-      <%= f.submit '検索', name: nil, class: ['btn', 'col-sm-2', 'offset-sm-4', 'btn-primary', 'mr-2'] %>
-      <%= link_to '新規登録', new_person_path, class: ['btn', 'col-sm-2', 'btn-danger', 'mr-2'] %>
+      <%= f.submit '検索', name: nil, class: ['btn', 'col-sm-2', 'offset-sm-4', 'btn-primary', 'mr-2', 'mb-2'] %>
+      <%= link_to '新規登録', new_person_path, class: ['btn', 'col-sm-2', 'btn-danger', 'mr-2', 'mb-2'] %>
     </div>
   <% end %>
 </div>
