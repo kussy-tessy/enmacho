@@ -2,7 +2,7 @@
   <div class="card">
     <h5 class="card-header"><a href="<%= kigurumi_path(kigurumi) %>"><%= kigurumi.character&.name_with_work || '？' %></a></h5>
     <div class="card-body">
-        <h5><a class="text-primary" href="person_path(kigurumi.owner)">
+        <h5><a class="text-primary" href="<%= person_path(kigurumi.owner) %>">
           <%= kigurumi.owner&.name_with_twitter %>
         </a></h5>
         <% if kigurumi.kigurumi_images.any? %>
