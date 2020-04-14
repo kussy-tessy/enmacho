@@ -34,6 +34,7 @@ class KigurumiForm
   end
 
   def should_include_character_name_when_has_work_name
+    debugger
     if @work_name.present? && @character_name.empty?
       errors.add(:character_name, 'この項目は必須です。作品名だけを登録することはできません')
     end
@@ -41,8 +42,8 @@ class KigurumiForm
 
   def should_include_work_name_when_is_not_original
     # debugger
-    if @work_name.empty? && @is_original.to_i == 0
-      errors.add(:work_name, 'オリジナルでない場合、この項目は必須です。')
+    if @work_name.empty? && @is_original.to_i == 0 && @kigurumi_images.filter{|url| url.present?}.empty?
+      errors.add(:work_name, 'オリジナルでなく、画像もない場合、この項目は必須です。')
     end
   end
 

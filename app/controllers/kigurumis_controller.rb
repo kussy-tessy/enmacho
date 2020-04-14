@@ -50,8 +50,7 @@ class KigurumisController < ApplicationController
     kigurumi = Kigurumi.find(sent_params[:id]) 
     @form = KigurumiForm.new(kigurumi)
     @form.update(sent_params)
-    kigurumi = @form.save
-    if kigurumi
+    if @form.save
       redirect_to kigurumi_path(kigurumi)
     else
       @url = kigurumi_path(kigurumi)
