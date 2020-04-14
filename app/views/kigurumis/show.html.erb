@@ -45,6 +45,21 @@
           <th>口開き/口閉じ</th>
           <td><%= @kigurumi.mouth_open %></td>
         </tr>
+        <tr>
+          <th>画像</th>
+          <td>
+          <%= @kigurumi.kigurumi_images[3] %>
+            <% if @kigurumi.kigurumi_images[0].present? %>
+              <%= link_to '1', @kigurumi.kigurumi_images[0].url %>
+            <% end %>  
+            <% if @kigurumi.kigurumi_images[1].present? %>
+              <%= link_to '2', @kigurumi.kigurumi_images[1].url %>
+              <% end %>  
+            <% if @kigurumi.kigurumi_images[2].present? %>
+              <%= link_to '3', @kigurumi.kigurumi_images[2].url %>
+            <% end %>
+          </td>
+      </tr>
       </table>
     </div>
     <div class="col-lg-6">
@@ -59,5 +74,3 @@
     </div>
   </div>
 </div>
-
-<script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>

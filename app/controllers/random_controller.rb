@@ -1,4 +1,9 @@
 class RandomController < ApplicationController
+  def show
+    @kigurumi = Kigurumi.offset(rand(Kigurumi.count)).first
+    render 'show'
+  end
+
   def edit
     retry_ = 0
     while retry_ <= 30

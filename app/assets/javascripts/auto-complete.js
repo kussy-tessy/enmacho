@@ -79,6 +79,7 @@ autoComplete.characterWorkChain = (params) => {
     },
     select: (event, ui) => {
       character.val(ui.item[characterVal]);
+      ui.item.work = ui.item.work || {name: 'オリジナル'};
       if(work.val() === '') work.val(ui.item.work[workVal]);
       return false;
     }

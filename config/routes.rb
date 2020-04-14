@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root :to => 'static#index'
 
-  get 'random/edit' => 'random#edit', as: :random_edit_path
+  get 'random/edit' => 'random#edit', as: :random_edit
+  get 'random/show' => 'random#show', as: :random_show
 
   resources :kigurumis do
     collection do

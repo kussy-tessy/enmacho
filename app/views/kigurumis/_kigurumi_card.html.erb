@@ -1,8 +1,10 @@
-<div class="col-md-6 mb-4">
+<div class="col-md-8 col-lg-6 offset-md-2 offset-lg-0 mb-4">
   <div class="card">
-    <h5 class="card-header"><a href="<%= person_path(kigurumi.owner) %>"><%= kigurumi.owner&.name_with_twitter %></a></h5>
-    <div class="card-body clickable" data-href="<%= kigurumi_path(kigurumi) %>">
-        <h5><a class="text-primary"><%= kigurumi.character&.name_with_work || '？' %></a></h5>
+    <h5 class="card-header"><a href="<%= kigurumi_path(kigurumi) %>"><%= kigurumi.character&.name_with_work || '？' %></a></h5>
+    <div class="card-body">
+        <h5><a class="text-primary" href="person_path(kigurumi.owner)">
+          <%= kigurumi.owner&.name_with_twitter %>
+        </a></h5>
         <% if kigurumi.kigurumi_images.any? %>
         　<div class="tweet-container" data-tweet-id="<%= kigurumi.kigurumi_images[0]&.tweet_id %>"></div>
         <% else %>

@@ -2,7 +2,7 @@ class PeopleController < ApplicationController
   def index
     @params = params
     if request.query_parameters.values.filter(&:present?).any?
-      @people = Person.search(params)
+      @people = Person.search(params).shuffle
     end
     render 'index'
   end
@@ -28,11 +28,6 @@ class PeopleController < ApplicationController
 
   def create
     @person = Person.new
-    # if params[:commit] == '本当に削除'
-      # @person.destroy!
-      # redirect_to 'index'
-      # return
-    # end
     if @person.update(sent_params)
       redirect_to person_path(@person)
     else

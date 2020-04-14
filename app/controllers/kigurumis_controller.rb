@@ -4,7 +4,7 @@ class KigurumisController < ApplicationController
   def index
     @params = params
     if request.query_parameters.values.filter(&:present?).any?
-      @kigurumis = Kigurumi.search(params)
+      @kigurumis = Kigurumi.search(params).shuffle
     end
     render 'index'
   end
@@ -47,7 +47,12 @@ class KigurumisController < ApplicationController
   end
 
   def update
-    kigurumi = Kigurumi.find(sent_params[:id]) 
+    kigurumi = Kigurumi.find(sent_params[:id])
+    if params[:commit] == '本当に削除'
+      kigurumi.destroy!
+      redirect_to kigurumis_path
+      return
+    end
     @form = KigurumiForm.new(kigurumi)
     @form.update(sent_params)
     if @form.save
