@@ -1,6 +1,6 @@
 <div class="col-md-6 mb-4">
   <div class="card">
-    <h5 class="card-header clickable" data-href="<%= person_path(person) %>"><%= person.name_with_twitter %></h5>
+    <h5 class="card-header"><a a href="<%= person_path(person) %>"><%= person.name_with_twitter %></a></h5>
     <div class="card-body">
         <p><%= "#{person.prefecture&.name}　#{person.age}" %></p>
         <div class="mb-2"><h5>主な着ぐるみ</h5></div>
