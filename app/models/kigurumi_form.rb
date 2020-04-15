@@ -43,7 +43,7 @@ class KigurumiForm
     if @work_name.empty? && @is_original.to_i == 0 && @kigurumi_images.filter{|url| url.present?}.empty?
       errors.add(:work_name, 'オリジナルでない場合、この項目は必須です。')
     end
-    if @character_name.present? && @is_original.to_i == 0 && @kigurumi_images.filter{|url| url.present?}.any?
+    if @work_name.empty? && @character_name.present? && @is_original.to_i == 0
       errors.add(:work_name, 'オリジナルでない場合、この項目は必須です。')
     end
   end
