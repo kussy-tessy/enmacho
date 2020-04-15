@@ -34,6 +34,7 @@ class Kigurumi < ApplicationRecord
 
   scope :search, -> (params) do
     character_name_is(params[:character_name])
+      .is_original(params[:is_original])
       .work_name_is(params[:work_name])
       .factory_id_is(params[:factory_id])
       .hair_color_is(params[:hair_color])
@@ -42,6 +43,7 @@ class Kigurumi < ApplicationRecord
   end
 
   scope :character_name_is, -> (character_name) { where(character: Character.find_by(name: character_name).presence || -1 ) if character_name.present? }
+  scope :is_original, -> (is_original) { where(character: Character.where(work: nil)) if is_original == '1' }
   scope :work_name_is, -> (work_name) { where(character: Character.where(work: Work.find_by(name: work_name)).presence || -1 ) if work_name.present? }
   scope :factory_id_is, -> (factory_id) { where(factory_id: factory_id) if factory_id.present? }
   scope :hair_color_is, -> (hair_color) { where(hair_color: hair_color) if hair_color.present? }

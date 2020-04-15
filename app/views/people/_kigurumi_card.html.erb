@@ -1,11 +1,11 @@
 <div class="col-md-6 mb-4">
   <div class="card">
-    <h5 class="card-header clickable" data-href="<%= kigurumi_path(kigurumi) %>"><%= kigurumi.character&.name_with_work || '？' %></h5>
+    <h5 class="card-header"><%= link_to kigurumi.character&.name_with_work || '？', kigurumi_path(kigurumi) %></h5>
     <div class="card-body">
         <% if kigurumi.kigurumi_images.any? %>
             <div class="tweet-container" data-tweet-id="<%= kigurumi.kigurumi_images[0]&.tweet_id %>"></div>
         <% else %>
-            <div>No Image</div>
+            <div class="alert alert-danger text-center">No Image</div>
         <% end %>
     </div>
   </div>

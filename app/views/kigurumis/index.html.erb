@@ -8,19 +8,27 @@
   <div class="card card-body bg-light mb-4">
     <%= form_with method: 'get', local: true, html: {autocomplete: 'off'} do |f| %>
       <div class="form-group row">
-        <label class="col-sm-3 col-form-label">キャラクター名</label>
+        <label class="col-sm-3 col-form-label"><b>キャラクター名</b></label>
         <%= f.text_field :character_name, value: @params[:character_name], id: :characterName, class: ['auto_complete','col-sm-7','form-control'] %><br>
       </div>
       <div class="form-group row">
-        <label class="col-sm-3 col-form-label">作品名</label>
-        <%= f.text_field :work_name, value: @params[:work_name], id: :workName, class: ['auto_complete', 'col-sm-7', 'form-control'] %><br>
+        <label class="col-sm-3 col-form-label"><b>作品名</b></label>
+        <div class="input-group col-sm-7 p-0">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <%= f.check_box :is_original, {checked: @params[:is_original] == '1', id: :isOriginal}, '1', nil %>
+              <label for="isOriginal" class="ml-2 mt-0 mb-0 mr-0">オリジナル</label>
+            </div>
+          </div>
+          <%= f.text_field :work_name, value: @params[:work_name], id: :workName, class: ['auto_complete', 'form-control'] %><br>
+        </div>
       </div>
       <div class="form-group row">
-        <label class="col-sm-3 col-form-label">工房</label>
+        <label class="col-sm-3 col-form-label"><b>工房</b></label>
         <%= f.select :factory_id, options_for_select(Factory.all.map{|e| [e.name, e.id]}, @params[:factory_id]), {include_blank: true}, {id: :factoryId, class:['auto_complete', 'col-sm-7', 'form-control']} %><br>
       </div>
       <div class="form-group row">
-        <div class="col-sm-2 col-form-label">外観</div>
+        <div class="col-sm-2 col-form-label"><b>外観</b></div>
         <label class="col-sm-2 col-form-label">髪の色</label>
         <%= f.select :hair_color, options_for_select(Kigurumi.hair_colors, @params[:hair_color]), {include_blank: true}, {id: :hairColor, class:['col-sm-2', 'form-control']} %>
         <label class="col-sm-2 pr-0 col-form-label">髪の長さ</label>
@@ -54,6 +62,28 @@
 </div>
 
 <script>
+var KIGURUMI_EDIT = KIGURUMI_EDIT || {};
+KIGURUMI_EDIT.toggleWork = () => {
+  if($('#isOriginal').prop('checked')){
+    $('#workName').attr('readonly', true);
+    $('#workName').val('');
+  } else {
+    $('#workName').attr('readonly', false);
+  }
+}
+
+$('#kigurumis').css('display', 'none');
+
+$('#destroy').on('click', function(){
+  $(this).addClass('d-none');
+  $('#destoryConfirm').removeClass('d-none');
+});
+
+$('#isOriginal').on('change', KIGURUMI_EDIT.toggleWork);
+
+// 初期化
+KIGURUMI_EDIT.toggleWork();
+
 autoComplete.characterWorkChain({
   character: '#characterName.auto_complete',
   work: '#workName.auto_complete',

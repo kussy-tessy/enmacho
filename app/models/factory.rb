@@ -1,3 +1,4 @@
 class Factory < ApplicationRecord
-    has_many :kigurumis
+  default_scope { order(:updated_at)  }
+  has_many :kigurumis
 end
