@@ -1,14 +1,12 @@
 <div class="col-md-8 col-lg-6 offset-md-2 offset-lg-0 mb-4">
   <div class="card">
-    <h5 class="card-header clickable" data-href="<%= person_path(person) %>">
-      <%= person.name_with_twitter %>
-    </h5>
+    <h5 class="card-header"><%= link_to person.name_with_twitter, person_path(person) %></h5>
     <div class="card-body">
-        <p><%= "#{person.prefecture&.name}, #{person.age}" %></p>
+        <p><%= "#{person.prefecture&.name}　#{person.age}" %></p>
         <div class="mb-2"><h5>所持している着ぐるみ</h5></div>
         <ul class="list-group list-group-flush">
-          <% person.kigurumis.filter{|kig| kig.character.present?}.each do |kigurumi| %>
-            <a href="<%= kigurumi_path(kigurumi) %>"class="list-group-item"><%= kigurumi.character&.name_with_work %></a>
+          <% person.kigurumis.each do |kigurumi| %>
+            <a href="<%= kigurumi_path(kigurumi) %>"class="list-group-item"><%= kigurumi.character&.name_with_work || '？' %></a>
           <% end %>
         </ul>
         <% if @add %>

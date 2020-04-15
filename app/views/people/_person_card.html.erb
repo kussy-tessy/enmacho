@@ -5,9 +5,9 @@
         <p><%= "#{person.prefecture&.name}　#{person.age}" %></p>
         <div class="mb-2"><h5>主な着ぐるみ</h5></div>
         <ul class="list-group list-group-flush">
-            <% person.kigurumis.filter{|kig| kig.character.present?}.sample(3).each do |kigurumi| %>
-                <a href="<%= kigurumi_path(kigurumi) %>"class="list-group-item"><%= kigurumi.character&.name_with_work %></a>
-            <% end %>
+          <% person.kigurumis.filter{|kig| kig.character.present?}.sample(3).each do |kigurumi| %>
+            <a href="<%= kigurumi_path(kigurumi) %>"class="list-group-item"><%= kigurumi.character&.name_with_work %></a>
+          <% end %>
         </ul>
     </div>
   </div>
