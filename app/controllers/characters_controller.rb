@@ -3,7 +3,7 @@ class CharactersController < ApplicationController
     @character = Character.find(sent_params[:id])
     @character.yomigana = sent_params[:yomigana]
     @character.save!
-    redirect_to random_edit_path_url
+    redirect_to random_edit_url
   end
 
   def auto_complete

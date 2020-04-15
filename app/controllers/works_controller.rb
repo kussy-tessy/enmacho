@@ -3,7 +3,7 @@ class WorksController < ApplicationController
     @work = Work.find(sent_params[:id])
     @work.yomigana = sent_params[:yomigana]
     @work.save!
-    redirect_to random_edit_path_url
+    redirect_to random_edit_url
   end
   
   def auto_complete
