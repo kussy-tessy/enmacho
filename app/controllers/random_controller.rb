@@ -11,7 +11,7 @@ class RandomController < ApplicationController
       retry_ += 1
       case @num
         when 1
-          @msg = "以下の着ぐるみさんの名前は分かりますか？"
+          @msg = "以下の着ぐるみさんのキャラクターの名前は分かりますか？"
           @kigurumi = Kigurumi.joins(:kigurumi_images).where.not('kigurumi_images.id': nil).where(character: nil).sample
           break if @kigurumi.present?
         when 2
@@ -26,24 +26,24 @@ class RandomController < ApplicationController
           @msg = '以下の着ぐるみさんの工房は分かりますか？'
           @kigurumi = Kigurumi.where(factory: nil).sample
           break if @kigurumi.present?
-        when 5
+        when 5, 6, 7, 8
           @msg = '以下の人は他に着ぐるみを持っていますか？'
           @person = Person.all.sample
           @add = true
           break if @person.present?
-        when 6
-          @msg = '以下の人の誕生日は分かりますか？'
+        when 9
+          @msg = '以下の人の年齢（誕生日）は分かりますか？'
           @person = Person.where(birth_year: nil).or(Person.where(birth_is_reliable: false)).sample
           break if @person.present?
-        when 7
+        when 10
           @msg = '以下の人の居住都道府県は分かりますか？'
           @person = Person.where(prefecture: nil).sample
           break if @person.present?
-        when 8
+        when 11
           @msg = '以下の作品の読み方は分かりますか？　ひらがなのみで入力してください。'
           @work = Work.where(yomigana: nil).sample
           break if @work.present?
-        when 9
+        when 12
           @msg = '以下のキャラクターの読み方は分かりますか？　ひらがなのみで入力してください。'
           @character = Character.where(yomigana: nil).sample
           break if @character.present?

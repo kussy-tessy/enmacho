@@ -19,7 +19,7 @@ class KigurumiForm
 
   def kigurumi_images_should_twitter_url
     @kigurumi_images.each do |image|
-      if image.present? && !image.match?(/https:\/\/twitter.com\/.+\/status\/\d+$/)
+      if image.present? && !image.match?(/^https:\/\/twitter.com\/.+\/status\/\d+/)
         errors.add(:kigurumi_images, '無効なURLが含まれています。TwitterのURLを入力してください。')
       end
     end

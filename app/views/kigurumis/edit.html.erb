@@ -124,10 +124,10 @@
         <%= f.select :mouth_open, options_for_select(Kigurumi.mouth_opens, @form.mouth_open), {include_blank: true}, class: ['col-sm-8', 'form-control'] %>
       </div>
       <div class="form-group row">
-        <label class="col-sm-4 control-label"><b>画像</b></label>
+        <label class="col-sm-4 control-label"><b>画像(TwitterURL)</b></label>
         <div class="col-sm-8 p-0">
           <% (0..2).each do |i| %>
-            <%= f.text_field :kigurumi_images, name: 'kigurumi_form[kigurumi_images][]', value: @form.kigurumi_images[i], class: 'form-control'  %>
+            <%= f.text_field :kigurumi_images, name: 'kigurumi_form[kigurumi_images][]', value: @form.kigurumi_images[i], id: 'kigurumiImages' + i.to_s ,class: 'form-control'  %>
           <% end %>
         </div>
         <div class="col-sm-8 offset-sm-4">      
@@ -169,6 +169,16 @@ $('#isOriginal').on('change', KIGURUMI_EDIT.toggleWork);
 // 初期化
 KIGURUMI_EDIT.toggleWork();
 
+
+// TwitterID入力補助
+$('#kigurumiImages0').on('blur', function(){
+  if($('#twitter').val() == ''){
+    const url = $(this).val();
+    const twitterId = url.split('/')[3];
+    $('#twitter').val(twitterId);
+  }
+});
+
 autoComplete.personChain({
   name: '#personName.auto_complete',
   twitter: '#twitter.auto_complete',
@@ -181,22 +191,22 @@ autoComplete.personChain({
     $.get({
       url: '<%= kigurumis_people_path %>',
       dataType: 'json',
-    data: {
-      name: name.val(),
-      twitter: twitter.val()
-  }
-  }).done(function(data){
-    $('#kigurumis li').remove();
-    $.each(data, function(id, kigurumi){
-      kigurumi.character = kigurumi.character || {name_with_work: '？'};
-      $('#kigurumis ul').append($('<li><a href=' + kigurumi.url + ' class="alert-link">' + kigurumi.character.name_with_work + '</a>'));
+      data: {
+        name: name.val(),
+        twitter: twitter.val()
+      }
+    }).done(function(data){
+      $('#kigurumis li').remove();
+      $.each(data, function(id, kigurumi){
+        kigurumi.character = kigurumi.character || {name_with_work: '？'};
+        $('#kigurumis ul').append($('<li><a href=' + kigurumi.url + ' class="alert-link">' + kigurumi.character.name_with_work + '</a>'));
+      });
+      if(data.length == 0){
+        $('#kigurumis ul').append($('<li>').text('まだ登録されていません。'));
+      }
+      $('#kigurumis').slideUp('slow');
+      $('#kigurumis').slideDown('slow');
     });
-    if(data.length == 0){
-      $('#kigurumis ul').append($('<li>').text('まだ登録されていません。'));
-    }
-    $('#kigurumis').slideUp('slow');
-    $('#kigurumis').slideDown('slow');
-  });
   }
 });
 
