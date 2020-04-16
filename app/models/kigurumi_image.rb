@@ -9,7 +9,6 @@ class KigurumiImage < ApplicationRecord
 
   private
     def chop_url
-      debugger
       self.url = self.url.split('?')[0]
     end
 end
