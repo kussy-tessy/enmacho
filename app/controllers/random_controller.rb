@@ -7,7 +7,7 @@ class RandomController < ApplicationController
   def edit
     retry_ = 0
     while retry_ <= 30
-      @num = (1..9).to_a.sample
+      @num = (1..12).to_a.sample
       retry_ += 1
       case @num
         when 1
