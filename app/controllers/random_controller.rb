@@ -7,7 +7,7 @@ class RandomController < ApplicationController
   end
 
   def recently
-    @kigurumi = Kigurumi.where('updated_at > ?', DateTime.now.ago(30.days)).sample
+    @kigurumi = Kigurumi.where('updated_at > ?', DateTime.now.ago(7.days)).sample
     render 'show'
   end
 
