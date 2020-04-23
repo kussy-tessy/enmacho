@@ -6,16 +6,16 @@
   </div>
   <div class="row">
     <div class="col-sm-3"></div>
-    <% if @num.in? (1..4).to_a %>
+    <% if @num.in? (1..11).to_a %>
       <%= render partial: 'kigurumis/kigurumi_card', locals: {kigurumi: @kigurumi} %>
     <% end %>
-    <% if @num.in? (5..10).to_a %>
+    <% if @num.in? (12..16).to_a %>
       <%= render partial: 'person_card', locals: {person: @person, add: @add} %>
     <% end %>
-    <% if @num.in? (11..11).to_a %>
+    <% if @num.in? (17..17).to_a %>
       <%= render partial: 'work_card', locals: {work: @work} %>
     <% end %>
-    <% if @num.in? (12..12).to_a %>
+    <% if @num.in? (18..18).to_a %>
       <%= render partial: 'character_card', locals: {character: @character} %>
     <% end %>
   </div>
