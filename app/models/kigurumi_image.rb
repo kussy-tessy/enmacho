@@ -1,7 +1,7 @@
 class KigurumiImage < ApplicationRecord
   before_save :chop_url
 
-  belongs_to :kigurumi, touch: save
+  belongs_to :kigurumi, touch: true
 
   def tweet_id
     self.url.match(/\d+$/){|match| match} 
