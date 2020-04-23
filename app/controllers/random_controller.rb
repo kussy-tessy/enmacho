@@ -4,6 +4,11 @@ class RandomController < ApplicationController
     render 'show'
   end
 
+  def recently
+    @kigurumi = Kigurumi.where('updated_at > ?', now.ago(7.days)).offset(rand(Kigurumi.count)).first
+    render 'show'
+  end
+
   def edit
     retry_ = 0
     while retry_ <= 30
