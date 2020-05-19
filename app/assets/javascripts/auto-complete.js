@@ -81,6 +81,7 @@ autoComplete.characterWorkChain = (params) => {
       character.val(ui.item[characterVal]);
       ui.item.work = ui.item.work || {name: 'オリジナル'};
       if(work.val() === '') work.val(ui.item.work[workVal]);
+      onSelected();
       return false;
     }
   }).data("ui-autocomplete")._renderItem = (ul, item) => {

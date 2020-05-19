@@ -1,5 +1,3 @@
-# require './app/models/KigurumiForm'
-
 class KigurumisController < ApplicationController
   def index
     @params = params

@@ -91,6 +91,10 @@ autoComplete.characterWorkChain({
   characterVal: 'name',
   workUrl: '<%= auto_complete_works_url %>',
   workVal: 'name',
-  characterDisplayVal: 'name_with_work'
+  characterDisplayVal: 'name_with_work',
+  onSelected: () => {
+    $('#isOriginal').prop('checked', true);
+    KIGURUMI_EDIT.toggleWork();
+  }
 });
 </script>
